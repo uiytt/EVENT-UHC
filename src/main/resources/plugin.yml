@@ -1,0 +1,14 @@
+main: fr.uiytt.eventuhc.Main
+name: Event-UHC
+version: {.version.}
+author: uiytt
+description: An UHC with a random twist
+api-version: 1.14
+commands:
+ event-uhc:
+  description: All the commands for EVENT-UHC
+  usage: /event-uhc <start|stop|force|team|reload|config|respawn>
+  aliases:
+  - euhc
+  - eu
+

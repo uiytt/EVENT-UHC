@@ -1,0 +1,12 @@
+/build/
+/out/
+/.gradle/
+
+/.settings/
+/.idea/
+/.vscode/
+
+
+*.class
+*.jar
+.gitattributes
