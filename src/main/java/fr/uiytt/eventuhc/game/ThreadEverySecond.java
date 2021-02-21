@@ -1,17 +1,13 @@
 package fr.uiytt.eventuhc.game;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
+import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import fr.uiytt.eventuhc.Main;
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
-import fr.uiytt.eventuhc.game.GameManager;
-import fr.uiytt.eventuhc.game.GameData;
-import fr.uiytt.eventuhc.game.GameScoreboard;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ThreadEverySecond {
 
@@ -76,14 +72,6 @@ public class ThreadEverySecond {
 			//Select a new event
 			if(secondFromStart % Main.CONFIG.getTimeBetweenChaosEvents() == 0) {
 				List<ChaosEvent> chaosList = gamedata.getAvailableChaosEvents();
-				System.out.println("AVAILABLE : ");
-				for(ChaosEvent chaosEvent : chaosList) {
-					System.out.println(chaosEvent.getName());
-				}
-				System.out.println("REMAINING");
-				for(ChaosEvent chaosEvent : gamedata.getRemainingChaosEvents()) {
-					System.out.println(chaosEvent.getName());
-				}
 				for(int i = 0;i<ThreadLocalRandom.current().nextInt(3) + 1;i++) {
 					if(chaosList.size() > 0) {
 						ChaosEvent chaosevent = chaosList.get(ThreadLocalRandom.current().nextInt(chaosList.size()));
