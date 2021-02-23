@@ -222,9 +222,8 @@ public enum Language {
             File languageFile = new File(Main.getInstance().getDataFolder().getAbsolutePath() + File.separator + "languages" + File.separator + langName + ".yml");
             if (!languageFile.exists()) {
                 Main.getLog().fine(languageFile.getName() + " not found, Downloading...");
-                if (languageFile.getParentFile().mkdirs()) {
-                    Files.copy(Language.class.getResourceAsStream("/languages/fr.yml"), languageFile.toPath());
-                }
+                languageFile.getParentFile().mkdirs();
+                Files.copy(Language.class.getResourceAsStream("/languages/fr.yml"), languageFile.toPath());
             }
 
             Yaml languageYaml = new Yaml(langName, "plugins/Event-UHC/languages");
