@@ -5,6 +5,7 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -16,6 +17,7 @@ public class BorderStartMenu implements InventoryProvider {
 			.id("EUHC_BorderStartMenu")
 			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Bordure de départ")
 			.size(3, 9)
+			.title(Language.GUI_TITLE_BORDER_START.getMessage())
 			.provider(this)
 			.manager(Main.getInvManager())
 			.parent(new MainMenu().INVENTORY)
@@ -59,11 +61,9 @@ public class BorderStartMenu implements InventoryProvider {
 	}
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
-				Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS, ChatColor.YELLOW + "Bordure de départ",
-						new String[] {ChatColor.GRAY + "La bordure de " + ChatColor.GREEN + "départ " + ChatColor.GRAY + "est ",
-								ChatColor.GRAY + "définit à " + ChatColor.YELLOW + "+" + Main.CONFIG.getBorderStart() + "/-" + Main.CONFIG.getBorderStart()
-						}
-				)
+			Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS, Language.GUI_BORDER_START_NAME.getMessage(),
+				Language.splitLore(Language.GUI_BORDER_START_LORE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getBorderStart())))
+			)
 		));
 	}
 }

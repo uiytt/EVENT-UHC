@@ -1,15 +1,14 @@
 package fr.uiytt.eventuhc.config;
 
+import de.leonhard.storage.Config;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Yaml;
 import fr.uiytt.eventuhc.Register;
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
-import fr.uiytt.eventuhc.chaosevents.ChaosEventWeirdBiomes;
-import fr.uiytt.eventuhc.game.GameManager;
+import fr.uiytt.eventuhc.events.ChaosEvent;
+import fr.uiytt.eventuhc.events.ChaosEventWeirdBiomes;
 import fr.uiytt.eventuhc.gui.DeconnectionRule;
 import fr.uiytt.eventuhc.utils.Divers;
 import fr.uiytt.eventuhc.utils.InventorySerializer;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -23,11 +22,9 @@ import java.util.Set;
 
 public class ConfigManager {
 	
-	private final Yaml configYaml;
+	private final Config configYaml;
 	private final Yaml chaosEventsYaml;
 	private final Json inventoriesJSON;
-	public static final String HEADER = ChatColor.DARK_GRAY  + "" + ChatColor.BOLD + "[" + ChatColor.YELLOW + "EVENT-UHC" + ChatColor.DARK_GRAY  + "" + ChatColor.BOLD + "] " + ChatColor.GRAY;
-	public static final String EVENT_HEADER = ChatColor.DARK_GRAY  + "" + ChatColor.BOLD + "[" + ChatColor.DARK_RED + "EVENT" + ChatColor.DARK_GRAY  + "" + ChatColor.BOLD + "] " + ChatColor.WHITE;
 
 	private int pvpTimer;
 	private int borderTimer;
@@ -55,11 +52,12 @@ public class ConfigManager {
 	private boolean comparatorOpenTeams;
 	private boolean finalHeal;
 	private boolean displayLife;
+	private String languageName;
 
 	public ConfigManager() {
-		this.configYaml = new Yaml("config","plugins/EVENT-UHC");
-		this.chaosEventsYaml = new Yaml("ChaosEvents","plugins/EVENT-UHC");
-		this.inventoriesJSON = new Json("Inventories","plugins/EVENT-UHC");
+		this.configYaml = new Config("config","plugins/Event-UHC");
+		this.chaosEventsYaml = new Yaml("ChaosEvents","plugins/Event-UHC");
+		this.inventoriesJSON = new Json("Inventories","plugins/Event-UHC");
 		defaultGeneratedMaterials = ChaosEventWeirdBiomes.initDefaultGeneratedMaterials();
 	}
 
@@ -76,8 +74,8 @@ public class ConfigManager {
 		nether = Bukkit.getWorld(configYaml.getOrSetDefault("world.nether","world_nether"));
 
 		//Various
-		flintsDrop = Math.min(configYaml.getOrSetDefault("various.Drops.FlintsRate", 50),100);
-		applesDrop = Math.min(configYaml.getOrSetDefault("various.Drops.ApplesRate", 4),100);
+		flintsDrop = Math.min(configYaml.getOrSetDefault("various.Drops.FlintsRate", 50f),100);
+		applesDrop = Math.min(configYaml.getOrSetDefault("various.Drops.ApplesRate", 4f),100);
 		potionLv2 = configYaml.getOrSetDefault("various.LVL2Potions", false);
 		diamondLimit = configYaml.getOrSetDefault("various.DiamondLimit.enable", false);
 		diamondlimitAmmount = configYaml.getOrSetDefault("various.DiamondLimit.ammount", 17);
@@ -87,6 +85,7 @@ public class ConfigManager {
 		teamSize = configYaml.getOrSetDefault("various.TeamSize",1);
 
 		//ServerOwner (can be modified only in the config file)
+		languageName = configYaml.getOrSetDefault("serverOwner.language","fr");
 		bannerOpenConfig = configYaml.getOrSetDefault("serverOwner.BannerOpenConfig", true);
 		comparatorOpenTeams = configYaml.getOrSetDefault("serverOwner.ComparatorOpenTeams", true);
 		deconnectionRule = DeconnectionRule.getFromString(configYaml.getOrSetDefault("serverOwner.DeconnectionRule", DeconnectionRule.NORMAL_KICK.name()));
@@ -107,6 +106,8 @@ public class ConfigManager {
 		//Events
 		timeBetweenChaosEvents = configYaml.getOrSetDefault("timer.TimeBetweenEvents",7) * 60;
 		ChaosEventWeirdBiomes.setGeneratedMaterials(parseStringListToMaterial(chaosEventsYaml.getOrSetDefault("events.WeirdBiomes.GeneratedMaterials", defaultGeneratedMaterials)));
+
+		Language.init(languageName);
 		loadChaosEvents();
 	}
 
@@ -346,5 +347,9 @@ public class ConfigManager {
 	public void setDisplayLife(boolean displayLife) {
 		this.displayLife = displayLife;
 		configYaml.set("various.DisplayLife",displayLife);
+	}
+
+	public String getLanguageName() {
+		return languageName;
 	}
 }

@@ -1,0 +1,260 @@
+header: "&8&l[&eEVENT-UHC&8&l] &7"
+event_header: "&8&l[&5EVENT-UHC&8&l] &f"
+error_header: "&8&l[&eEVENT-UHC&8&l] &cERREUR:"
+
+game:
+  victory: "%header% Bravo à &9%s &7 pour sa victoire !!!"
+  pvp_soon: "%header% Le &9pvp &7sera activé dans &c%s &7seconde(s)."
+  pvp_activated: "%header% Le &9pvp &7vient d'être activé."
+  border_soon: "%header% La &abordure &7sera activé dans &c%s &7seconde(s)."
+  border_activated: "%header% La &abordure &7commence à bouger."
+  teleporting: "%header% Les joueurs vont être téléportés."
+  teleporting_player: "%header% Téléportation du joueur &9%s%&7/&9%s2%"
+  teleporting_team: "%header% Téléportation de la team &9%s%&7/&9%s2%"
+
+warning:
+  error:
+    winner_not_online: "%error_header% Le gagnant n'est pas connecté."
+    ffa: "%error_header% Vous ne pouvez pas faire ça en mode FFA."
+    add_team: "%error_header% Une erreur a eu lieu lors de votre ajout dans cette team."
+  reconnection: "%header% &cLe joueur %s% sera enlevé de la partie dans %s2% secondes si il ne se reconnecte pas."
+  player_removed: "%header% Le joueur &c%s% &7a été enlevé de la partie/home/uiytt/Dev/Serveurs/spigot-1.14.4/plugins."
+  diamond_limit: "%header% Vous ne pouvez pas miner plus de &b%s% diamants&7."
+  permission: "%header% &cVous n'avez pas la permission."
+  game_is_on: "%header% &cVous ne pouvez pas faire ça alors que la partie est lancée."
+  game_is_off: "%header% &cVous ne pouvez pas faire ça alors que la partie n'est pas lancée."
+  not_enough_player: "%header% &cIl n'y a pas assez de joueur pour faire ça."
+  consol: "%header% &cCette commande ne peut pas être exécutée depuis la console."
+
+command:
+  stop: "%header% Un joueur a arrêté la partie."
+  force_border: "%header% &cVous avez déjà forcé la bordure."
+  force_pvp: "%header% &cVous avez déjà forcé le pvp."
+  reload: "%header% La config a été rechargée."
+  finish_items: "%header% &cVous n'êtes pas entrain de modifier des items."
+  player_alive: "%header% &cLe joueur est toujours vivant."
+  player_exist: "%header% &cLe joueur n'existe pas."
+  syntax: "%header% &cLa syntax n'est pas correcte: "
+  help:
+    title: "&7>> &e&l/event-uhc &b... "
+    aliases: "&eAliases: /eu,/euhc"
+    start: "&b... &lstart &7: Démarre la partie"
+    stop: "&b... &lstop &7: Arête la partie"
+    config: "&b... &lconfig &7: Ouvre le panneau de configuration"
+    force: "&b... &lforce &7: Force le pvp ou la bordure"
+    reload: "&b... &lreload &7: Recharge la config et la langue"
+    respawn: "&b... &respawn &7: Permet de faire respawn le joueur"
+    finish: "&b... &lfinish &7: Mets fin à l'éditeur des items de départ et de mort"
+    team: "&b... &lteam &7: Ouvre le menu de sélection des teams"
+    help: "&b... &lhelp &7: Envoie ce message"
+
+
+
+events:
+  tnt_timer:
+    lore: "Une tnt spawn sur les joueurs \n toutes les 20s"
+    enable: "%event_header% BOOM BOOM BOOM (une tnt toutes les 20 secondes apparaitera sur vous :D ) "
+  bff:
+    lore: "Les joueurs recoivent un chien."
+    enable: "%event_header% Voici votre nouveau Best Friend Forever : un chien."
+  blaze:
+    lore: "Spawn des blazes sur les joueurs"
+    enable: "%event_header% 4 blaze(s) pour le prix d'un :D"
+  blocks_attack:
+    lore: "Certains blocs minés peuvent attaquer en retour"
+    enable: "%event_header% Faites attention, certains blocs peuvent maintenant rispoter."
+  blocks_gravity:
+    lore: "Les blocs ont de la gravité. \n &cPeut faire laguer le serveur"
+    enable: "%event_header% Les blocs vont êtres afféctés par la gravité."
+  bow_swap:
+    lore: ""
+    enable: "%event_header% Activation du Bow swap !"
+  curse_of_binding:
+    lore: ""
+    enable: "%header% AHA, Vous ne pouvez plus enlever vos armures !"
+  damage_drop_items:
+    lore: "Lorsqu'un joueur se fait frapper,\nil drop un item."
+    enable: "%event_header% Lorsque vous prenez des dégats, vous droppez un item."
+  double_health:
+    lore: "Les joueurs ont temporairement deux \nbarres de vie"
+    enable: "%event_header% + 20PV (vous gardez vos PV supplémentaires à la fin)."
+  explosion_spawn_mobs:
+    lore: "Lorsqu'un creeper ou une tnt explose,\n10 mobs apparaissent."
+    enable: "%event_header% Les explosions font apparaîtrent des monstres... Conseil : Ne faites pas exploser les creepers"
+  golden_apple:
+    lore: "Les joueurs recoivent entre une\net deux pommes d'or"
+    enable: "%event_header% Vous avez reçus un cadeau."
+  haste:
+    lore: ""
+    enable: "%event_header% + Haste"
+  heal:
+    lore: "Tous les joueurs sont soignés."
+    enable: "%event_header% Vous venez tous d'être soigné."
+  jump_boost:
+    lore: ""
+    enable: "%event_header% + JumpBoost V"
+  levitation:
+    lore: ""
+    enable: "%event_header% Vers l'infini et l'au-delà. (Vous avez lévitation de manière régulière)."
+  life_share:
+    lore: "Les joueurs auront leurs vies liées"
+    enable: "%event_header% Les joueurs vont partager leurs vies avec un autre joueur ..."
+    link: "%event_header% Tu es lié avec le joueur &e%s%"
+  life_shuffle:
+    lore: "Les joueurs auront leurs vies mélangées"
+    enable: "%event_header% Vous avez échangé votre vie avec un autre joueur"
+    receive: "%event_header% Tu as reçus la vie de &e%s%"
+  no_damage_mobs:
+    lore: ""
+    enable: "%event_header% Vous êtes maintenant temporairement immunisé contre les damages des mobs."
+  no_entity_gravity:
+    lore: "Toutes entités qui spawn n'ont pas de gravité"
+    enable: "%event_header% GravityInc. annonce sa fermeture."
+  no_jump:
+    lore: ""
+    enable: "%event_header% Au moins vous gardez les pieds au sol... (NoJump)"
+  other_world:
+    lore: "Tp tous les joueurs aux mêmes cordoonées dans le nether."
+    enable: "%event_header% Ça vous dit un voyage vers un autre monde ? Tant mieux vous n'avez pas le choix :D \n P.S : Vous reviendrez à la fin."
+    cancel: "%event_header% Votre tp dans le nether a été annulé car il y a de la lave à votre destination."
+  popcorn:
+    lore: "Toutes les 3 secondes, les joueurs\nsont propulsés dans une direction aléatoire."
+    enable: "%event_header% Attention, toutes les trois secondes, vous serez envoyés dans une direction aléatoire, good luck."
+  raining_mobs:
+    lore: "Pluie de mobs :D"
+    enable: "%event_header% It's Raining Mobs"
+  random_inventory:
+    lore: "L'inventaire se mélange aléatoirement "
+    enable: "%event_header% Random Inventory -> L'ordre de vos items est aléatoire."
+  run_glow:
+    lore: ""
+    enable: "%event_header% Dés que vous courez, vous brillez !"
+  skyhigh:
+    lore: "Les joueurs en dessous de 150 blocs\nprennent des dégats"
+    enable: "%event_header% Fly you fools. Dans 1m, tous les joueurs en dessous de 150 blocs vont prendre des dégats"
+  slowness:
+    lore: ""
+    enable: "%event_header% Rien ne sert de courir; il faut partir à point -> slowness."
+  small_meteors:
+    lore: ""
+    enable: "%event_header% La fin du monde est arrivée, seul les élues survivront (pluie de météorites)."
+  snowball_zombie:
+    lore: "Lancer une boule de neige fait\nspawn un zombie."
+    enable: "%event_header% Essayez de lancer une boule de neige ^^'"
+  speed:
+    lore: ""
+    enable: "%event_header% + Speed XII"
+  speed_pig:
+    lore: "Les joueurs sont bloqués sur un cochon avec speed 2."
+    enable: "%event_header% Course de cochons ! (vous êtes bloqué sur un cochon avec speed 2)."
+  stone_is_lava:
+    lore: ""
+    enable: "%event_header% &c&lLa stone autour des joueurs va se transformer en lave dans 60 secondes (protégez vous) "
+  sunlight_kills:
+    lore: "Au soleil, les joueurs meurent"
+    enable: "%event_header% Restez chez vous si vous ne nouvez pas bruler... Vous brulerez au soleil dans 20 secondes. (oui vous brulez aussi la nuit TGCM)."
+  swap:
+    lore: "Les joueurs sont swap régulièrement"
+    enable: "%event_header% Les joueurs vont êtres swap toutes les 1 minutes et 30 secondes. (attention les swaps peuvent être annulés)"
+    timer: "%event_header% Swap dans %s% secondes."
+    cancel: "%event_header% Le swap a été annulé."
+  teleportation_top:
+    lore: ""
+    enable: "%event_header% Retour case départ (surface)"
+  teleportation_others:
+    lore: "Téléporte des joueurs aléatoirement\nà d'autres joueurs"
+    enable: "%event_header% Dans 30s certains joueurs seront tp à d'autres. LET'S FIGHTTTTT"
+    enable2: "%event_header% Vous avez 20% de chance d'être téléporté sur un autre joueur, ne mourrez pas !"
+  unbreakable_blocks:
+    lore: ""
+    enable: "%event_header% Les blocs sont incassables. Let's play &mMine&rcraft"
+  water_poison:
+    lore: "Les joueurs recoivent poison dans l'eau."
+    enable: "%event_header% L'eau est maintenant radioactive (enfin elle donne poison)."
+  weird_biomes:
+    lore: "Des biomes de blocs aléatoires apparaissent."
+    enable: "%event_header% Des choses bizzares se passent aux cordonées :"
+    coords: "%event_header% X:%X% et Z:%Z%"
+  weird_fight:
+    lore: "Les joueurs ne peuvent utiliser ni\ndes épées, ni des arcs."
+    enable: "%event_header% Vous ne pouvez plus utiliser des épées ou des arcs pour combattre."
+  wither_middle:
+    lore: "Spawn un ou des Withers en 0 0"
+    enable: "%event_header% Un/des wither vous attend(ent) en 0 0."
+
+gui:
+  enable: "&aactivé"
+  disable: "&cdésactivé"
+  next: "&ePage suivante"
+  previous: "&ePage précédante"
+  advanced:
+    title:
+    apples_drop_name: "&eDrop des pommes"
+    apples_drop_lore: "&7Le drop de pommes est de &b %s%%"
+    flints_drop_name: "&eDrop de silex"
+    flints_drop_lore: "&7Le drop de silex est de &b%s%%"
+    potionslv2_name: "&ePotions II"
+    potionslv2_lore: "&7Les potions level II sont %enable%"
+    diamond_limit_name: "&eDiamondLimit"
+    diamond_limit: "&7La limite de diamants est de &b%s% diamants"
+    diamond_limite_enable: "&7La diamondLimit est &aactivé\n&7sa limite actuelle est de &b%s% diamants\n\n&fClique gauche &l>> &cDesactiver\n&fClique droit &l>> &bChanger la limite"
+    diamond_limite_disable: "&7La diamondLimit est &cdésactivé\n&7sa limite actuelle est de &b%s% diamants\n\n&fClique gauche &l>> &aActiver\n&fClique droit &l>> &bChanger la limite"
+    cutclean_name: "&eCutclean"
+    cutclean_lore: "&7Le cutclean est %enable%"
+    final_heal_name: "&eFinalHeal"
+    final_heal_lore: "&7Les joueurs sont heal avant \n&7le pvp: %enable%"
+    visible_health_name: "&eVie visible"
+    visible_health_lore: "&7La vie est visible dans le Tab: %enable%"
+  border:
+    end_name: "&eBordure finale"
+    end_lore: "&7La bordure &cfinale &7est\n&7définit à &e+%s%/-%s%"
+    time_name: "&eTemps avant la bordure"
+    time_lore: "&7La bordure commencera \n&7à bouger au bout de &e%s% minutes"
+    speed_name: "&eVitesse de la bordure"
+    speed_lore: "&7La bordure fait du &e%s% bloc(s)/seconde"
+    start_name: "&eBordure de départ"
+    start_lore: "&7La bordure de &adépart &7est \n&7définit à &e+%s%/-%s%"
+  respawn:
+    effects: "&7Le joueur réapparaîtra avec 30s \n&7de resistance au feu,\n&75s de Résistance IV et \n&71m de water breathing."
+    name: "&aRespawn %s%"
+    random_tp_name: "&eRandomTP"
+    random_tp_lore: "&7Le randomTP est %enable% \n&7le joueur réapparaîtra à l'endroit \n&7de sa mort."
+    give_stuff_name: "&eStuff"
+    give_stuff_lore: "&7Le stuff est %enable% \n&7Indique si le joueur récupère \n&7son stuff de mort."
+  main:
+    pvp_name: "&eDébut du pvp"
+    pvp_lore: "&7Le pvp commencera \n&7au bout de &e%s% &7minutes"
+    time_events_name: "&eTemps entre deux events"
+    time_events_lore: "&7Il y a &d%s% minutes \n&7entre deux events. \n&7La majorité des events \n&7dureront le même temps."
+    start_items_name: "&eItems de départ"
+    start_items_lore: "&7Les items qui sont donnés au \n&7début de la partie aux joueurs"
+    death_items_name: "&eItems de mort"
+    death_items_lore: "&7Les items qui sont droppés à \n&7la mort d'un joueur"
+    events_name: "&eEvents"
+    events_lore: "&7Activer/désactiver les events"
+    advanced_name: "&eParamètres avancés"
+    advanced_lore: "&7Quelques paramètres avancés"
+    teams_size_name: "&eTaille des teams"
+    teams_ffa_lore: "&7Vous êtes en &bFFA"
+    teams_size_lore: "&7Vous êtes en &b%s% vs %s%"
+  other:
+    add_items: "&eAjouter des items"
+    finish: "&f―――――――――――――――――――――――――――――――――――――\n\n&8&l>> &aFaites &e/event-uhc finish &apour sauvegarder les items.\n\n&f―――――――――――――――――――――――――――――――――――――"
+  title:
+    advanced_menu: "&8&lParamètres avancés"
+    apples_rate_menu: "&8&lDrop des pommes"
+    border_end_menu: "&8&lBordure de fin"
+    border_speed_menu: "&8&lVitesse de la bordure"
+    border_start_menu: "&8&lBordure de départ"
+    border_time_menu: "&8&lTemps Bordure"
+    death_items_menu: "&8&lItems de morts"
+    diamond_limit_menu: "&8&lLimite de diamant"
+    events_menu: "&8&lEvents"
+    flints_rate_menu: "&8&lDrop des silex"
+    main_menu: "&8&lConfig"
+    pvp_menu: "&8&lTemps PVP"
+    respawn_menu: "&8&lRespawn"
+    spectator_inventory_menu: "&8&lItems du joueur"
+    start_items_menu: "&8&lItems de départs"
+    teams_menu: "&8&lLes équipes"
+    time_events: "&8&lTemps entre deux events"

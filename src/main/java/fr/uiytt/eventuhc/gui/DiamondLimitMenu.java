@@ -5,6 +5,7 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -14,8 +15,8 @@ public class DiamondLimitMenu implements InventoryProvider {
 
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_DiamondLimitMenu")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "DiamondLimit")
 			.size(3, 9)
+			.title(Language.GUI_TITLE_DIAMOND_LIMIT.getMessage())
 			.provider(this)
 			.manager(Main.getInvManager())
 			.parent(new AdvancedMenu().inventory)
@@ -58,10 +59,8 @@ public class DiamondLimitMenu implements InventoryProvider {
 	}
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
-				Divers.ItemStackBuilder(Material.DIAMOND_ORE, ChatColor.YELLOW + "DiamondLimit",
-						new String[] {
-								ChatColor.GRAY + "La diamond limite est de " + ChatColor.AQUA + "" + Main.CONFIG.getDiamondlimitAmmount() +" diamants",
-						}
+				Divers.ItemStackBuilder(Material.DIAMOND_ORE, Language.GUI_ADVANCED_DIAMOND_LIMIT_NAME.getMessage(),
+						Language.splitLore(Language.GUI_ADVANCED_DIAMOND_LIMIT.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getDiamondlimitAmmount())))
 				)
 		));
 	}

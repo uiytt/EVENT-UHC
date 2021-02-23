@@ -1,7 +1,7 @@
 package fr.uiytt.eventuhc.game;
 
 import fr.uiytt.eventuhc.Main;
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
+import fr.uiytt.eventuhc.events.ChaosEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 

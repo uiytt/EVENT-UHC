@@ -1,7 +1,7 @@
 package fr.uiytt.eventuhc.game;
 
 import fr.uiytt.eventuhc.Main;
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
+import fr.uiytt.eventuhc.events.ChaosEvent;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -28,6 +28,7 @@ public class GameScoreboard {
 
 		if(Main.CONFIG.isDisplayLife()) {
 			final Objective objLife = scoreboard.registerNewObjective("health","health","health");
+			objLife.setRenderType(RenderType.HEARTS);
 			objLife.setDisplaySlot(DisplaySlot.PLAYER_LIST);
 		}
 
@@ -59,7 +60,7 @@ public class GameScoreboard {
 		scorelist.add(obj.getScore(ChatColor.BLUE + ""));
 		Team border_size = scoreboard.registerNewTeam("EUHC_bordersize");
 		border_size.addEntry(ChatColor.DARK_BLUE + "");
-		border_size.setPrefix(ChatColor.GREEN + "Bordure:" + ChatColor.GRAY + " +0/-0");
+		border_size.setPrefix(ChatColor.GREEN + "Border:" + ChatColor.GRAY + " +0/-0");
 		scorelist.add(obj.getScore(ChatColor.DARK_BLUE + ""));
 		
 		//Events
@@ -67,7 +68,7 @@ public class GameScoreboard {
 		scorelist.add(obj.getScore(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Events"));
 		Team next_event = scoreboard.registerNewTeam("EUHC_nextevent");
 		next_event.addEntry(ChatColor.DARK_AQUA + "");
-		next_event.setPrefix(ChatColor.GRAY + "Prochain: " + ChatColor.DARK_PURPLE + "00:00");
+		next_event.setPrefix(ChatColor.GRAY + "Next: " + ChatColor.DARK_PURPLE + "00:00");
 		scorelist.add(obj.getScore(ChatColor.DARK_AQUA + ""));
 		
 		int n = 10;
@@ -81,7 +82,7 @@ public class GameScoreboard {
 	public void updateBorderSize(int size) {
 		Team border_size = scoreboard.getTeam("EUHC_bordersize");
 		if (border_size != null) {
-			border_size.setPrefix(ChatColor.GREEN + "Bordure:" + ChatColor.GRAY + " +" + size + "/" + "-" + size);
+			border_size.setPrefix(ChatColor.GREEN + "Border:" + ChatColor.GRAY + " +" + size + "/" + "-" + size);
 		}
 	}
 	public void addPlayer(Player player) {
@@ -185,7 +186,7 @@ public class GameScoreboard {
 		Team nextEvent = scoreboard.getTeam("EUHC_nextevent");
 		if(nextEvent == null) {return;}
 		if(time != -1) {
-			nextEvent.setPrefix(ChatColor.GRAY + "Prochain: " + ChatColor.DARK_PURPLE + intToTime(time));
+			nextEvent.setPrefix(ChatColor.GRAY + "Next: " + ChatColor.DARK_PURPLE + intToTime(time));
 		}
 		
 	}

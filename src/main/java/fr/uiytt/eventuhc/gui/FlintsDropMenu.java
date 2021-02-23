@@ -5,6 +5,7 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -14,8 +15,8 @@ public class FlintsDropMenu implements InventoryProvider {
 
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_FlintsDropMenu")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Drop de silex")
 			.size(3, 9)
+			.title(Language.GUI_TITLE_FLITNTS_RATE.getMessage())
 			.provider(this)
 			.manager(Main.getInvManager())
 			.parent(new AdvancedMenu().inventory)
@@ -58,10 +59,8 @@ public class FlintsDropMenu implements InventoryProvider {
 	}
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
-				Divers.ItemStackBuilder(Material.FLINT, ChatColor.YELLOW + "Drop de silex",
-						new String[] {
-								ChatColor.GRAY + "Le drop de silex est de " + ChatColor.AQUA + "" + Main.CONFIG.getFlintsDrop() +"%",
-						}
+				Divers.ItemStackBuilder(Material.FLINT, Language.GUI_ADVANCED_FLINTS_DROP_NAME.getMessage(),
+						Language.splitLore(Language.GUI_ADVANCED_FLINTS_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getFlintsDrop())))
 				)
 		));
 	}

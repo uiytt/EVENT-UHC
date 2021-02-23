@@ -5,6 +5,7 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -14,8 +15,8 @@ public class ApplesDropMenu implements InventoryProvider {
 
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_ApplesDropMenu")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Drop des pommes")
 			.size(3, 9)
+			.title(Language.GUI_TITLE_APPLES_RATE.getMessage())
 			.provider(this)
 			.manager(Main.getInvManager())
 			.parent(new AdvancedMenu().inventory)
@@ -58,10 +59,8 @@ public class ApplesDropMenu implements InventoryProvider {
 	}
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
-				Divers.ItemStackBuilder(Material.APPLE, ChatColor.YELLOW + "Drop des pommes",
-						new String[] {
-								ChatColor.GRAY + "Le drop des pommes est de " + ChatColor.AQUA + "" + Main.CONFIG.getApplesDrop() +"%",
-						}
+				Divers.ItemStackBuilder(Material.APPLE, Language.GUI_ADVANCED_APPLES_DROP_NAME.getMessage(),
+						Language.splitLore(Language.GUI_ADVANCED_APPLES_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getApplesDrop())))
 				)
 		));
 	}

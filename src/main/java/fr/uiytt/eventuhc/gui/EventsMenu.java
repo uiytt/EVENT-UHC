@@ -9,7 +9,8 @@ import fr.minuskube.inv.content.SlotIterator.Type;
 import fr.minuskube.inv.content.SlotPos;
 import fr.uiytt.eventuhc.Main;
 import fr.uiytt.eventuhc.Register;
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
+import fr.uiytt.eventuhc.config.Language;
+import fr.uiytt.eventuhc.events.ChaosEvent;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -25,8 +26,8 @@ public class EventsMenu implements InventoryProvider {
 
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_EventsMenu")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Events")
 			.size(6, 9)
+			.title(Language.GUI_TITLE_EVENTS.getMessage())
 			.provider(this)
 			.manager(Main.getInvManager())
 			.parent(new MainMenu().INVENTORY)
@@ -45,9 +46,9 @@ public class EventsMenu implements InventoryProvider {
 			if(!chaosEvent.isLoaded()) continue;
 			ItemStack chaosEventItem;
 			if(chaosEvent.isEnabled()) {
-				chaosEventItem = Divers.ItemStackBuilder(chaosEvent.getItemMaterial(), ChatColor.GREEN + chaosEvent.getName() + " - ACTIVE",chaosEvent.getDescriptionLore());
+				chaosEventItem = Divers.ItemStackBuilder(chaosEvent.getItemMaterial(), ChatColor.GREEN + chaosEvent.getName() + " - " + Language.GUI_ENABLE.getMessage(),chaosEvent.getDescriptionLore());
 			} else {
-				chaosEventItem = Divers.ItemStackBuilder(chaosEvent.getItemMaterial(), ChatColor.RED + chaosEvent.getName() + " - DESACTIVE",chaosEvent.getDescriptionLore());
+				chaosEventItem = Divers.ItemStackBuilder(chaosEvent.getItemMaterial(), ChatColor.RED + chaosEvent.getName() + " - " + Language.GUI_DISABLE.getMessage(),chaosEvent.getDescriptionLore());
 			}
 			clickableItems.add(ClickableItem.of(
 				chaosEventItem,
@@ -67,7 +68,7 @@ public class EventsMenu implements InventoryProvider {
 			ItemStack playerhead = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta playerheadmeta = (SkullMeta) playerhead.getItemMeta();
             playerheadmeta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_ArrowRight"));
-            playerheadmeta.setDisplayName("Page suivante");
+            playerheadmeta.setDisplayName(Language.GUI_NEXT.getMessage());
             playerhead.setItemMeta(playerheadmeta);
 			contents.set(5, 6, ClickableItem.of(playerhead, event -> this.inventory.open(player, pagination.next().getPage())));
 		}
@@ -75,7 +76,7 @@ public class EventsMenu implements InventoryProvider {
 			ItemStack playerhead = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta playerheadmeta = (SkullMeta) playerhead.getItemMeta();
             playerheadmeta.setOwningPlayer(Bukkit.getOfflinePlayer("MHF_ArrowLeft"));
-            playerheadmeta.setDisplayName("Page précédante");
+            playerheadmeta.setDisplayName(Language.GUI_PREVIOUS.getMessage());
             playerhead.setItemMeta(playerheadmeta);
 			contents.set(5, 2, ClickableItem.of(playerhead, event -> this.inventory.open(player, pagination.previous().getPage())));
 		}

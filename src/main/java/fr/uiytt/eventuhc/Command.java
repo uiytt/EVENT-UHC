@@ -1,28 +1,26 @@
 package fr.uiytt.eventuhc;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import fr.uiytt.eventuhc.config.ConfigManager;
+import fr.uiytt.eventuhc.config.Language;
+import fr.uiytt.eventuhc.events.ChaosEvent;
 import fr.uiytt.eventuhc.game.GameData;
+import fr.uiytt.eventuhc.game.GameManager;
+import fr.uiytt.eventuhc.gui.DeathItemsMenu;
+import fr.uiytt.eventuhc.gui.MainMenu;
+import fr.uiytt.eventuhc.gui.RespawnMenu;
+import fr.uiytt.eventuhc.gui.StartItemsMenu;
+import fr.uiytt.eventuhc.gui.TeamsMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
-
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
-import fr.uiytt.eventuhc.game.GameManager;
-import fr.uiytt.eventuhc.gui.DeathItemsMenu;
-import fr.uiytt.eventuhc.gui.MainMenu;
-import fr.uiytt.eventuhc.gui.RespawnMenu;
-import fr.uiytt.eventuhc.gui.StartItemsMenu;
-import fr.uiytt.eventuhc.gui.TeamMenu;
-import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Command implements CommandExecutor,TabCompleter{
 
@@ -35,50 +33,47 @@ public class Command implements CommandExecutor,TabCompleter{
 		GameData gameData = game.getGameData();
 		if(args[0].equals("start")) {
 			if(!sender.hasPermission("event-uhc.start")) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous n'avez pas la permission.");
+				sender.sendMessage(Language.WARNING_PERMISSION.getMessage());
 				return true;
 			}
 			if(gameData.isGameRunning()) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "La partie est déjà en cours.");
+				sender.sendMessage(Language.WARNING_GAME_ON.getMessage());
 				return true;
 			}
-			if(Main.devMode) {
+
+			if(Bukkit.getOnlinePlayers().size() >= 2) {
 				game.init(new ArrayList<>(Bukkit.getServer().getOnlinePlayers()));
 			} else {
-				if(Bukkit.getOnlinePlayers().size() >= 2) {
-					game.init(new ArrayList<>(Bukkit.getServer().getOnlinePlayers()));
-				} else {
-					sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous ne pouvez pas commencer la partie avec moins de 2 joueurs.");
-				} 
+				sender.sendMessage(Language.WARNING_NOT_ENOUGH_PLAYERS.getMessage());
 			}
-						
+
 			return true;
 			
 			
 		} else if(args[0].equals("stop")) {
 			if(!sender.hasPermission("event-uhc.stop")) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous n'avez pas la permission.");
+				sender.sendMessage(Language.WARNING_PERMISSION.getMessage());
 				return true;
 			}
 			if(!gameData.isGameRunning()) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "La partie n'est pas lancée.");
+				sender.sendMessage(Language.WARNING_GAME_OFF.getMessage());
 				return true;
 			}
 			game.stopGame();
-			Bukkit.broadcastMessage(ConfigManager.HEADER + ChatColor.GRAY + "Un joueur a arrêté la partie.");
+			Bukkit.broadcastMessage(Language.COMMAND_STOP.getMessage());
 			return true;
 			
 		} else if(args[0].equalsIgnoreCase("force")) {
 			if(!sender.hasPermission("event-uhc.force")) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous n'avez pas la permission.");
+				sender.sendMessage(Language.WARNING_PERMISSION.getMessage());
 				return true;
 			}
 			if(!gameData.isGameRunning()) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous ne pouvez pas faire ça alors que la partie n'est pas lancée.");
+				sender.sendMessage(Language.WARNING_GAME_OFF.getMessage());
 				return true;
 			}
 			if (args.length < 2) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "La syntaxe n'est pas correcte : /event-uhc force (pvp|border)");
+				sender.sendMessage(Language.COMMAND_SYNTAX.getMessage() +"/event-uhc force (pvp|border)");
 				return true;
 			}
 			if(args[1].equalsIgnoreCase("pvp")) {
@@ -86,59 +81,59 @@ public class Command implements CommandExecutor,TabCompleter{
 					game.enablePVP();
 					return true;
 				}
-				sender.sendMessage(ConfigManager.HEADER + "Vous avez déjà forcé le pvp.");
+				sender.sendMessage(Language.COMMAND_FORCE_PVP.getMessage());
 			} else if (args[1].equalsIgnoreCase("border")) {
 				if(!gameData.isBorderAlreadyMoving()) {
 					game.enableBorder();
 					return true;
 				}
-				sender.sendMessage(ConfigManager.HEADER + "Vous avez déjà forcé la bordure.");
+				sender.sendMessage(Language.COMMAND_FORCE_BORDER.getMessage());
 			} else {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "La syntaxe n'est pas correcte : /event-uhc force (pvp|border)");
+				sender.sendMessage(Language.COMMAND_SYNTAX.getMessage() + "/event-uhc force (pvp|border)");
 			}
 			return true;
 			
 		} else if(args[0].equalsIgnoreCase("reload")) {
 			if(!sender.hasPermission("event-uhc.reload")) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous n'avez pas la permission.");
+				sender.sendMessage(Language.WARNING_PERMISSION.getMessage());
 				return true;
 			}
 			if(gameData.isGameRunning()) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous ne pouvez pas faire ça alors que la partie est lancée.");
+				sender.sendMessage(Language.WARNING_GAME_ON.getMessage());
 				return true;
 			}
 			Main.CONFIG.forceReload();
 			Main.CONFIG.load();
 			ChaosEvent.changeBaseDuration(Main.CONFIG.getTimeBetweenChaosEvents());
-			sender.sendMessage(ConfigManager.HEADER + "La config a été rechargée.");
+			sender.sendMessage(Language.COMMAND_RELOAD.getMessage());
 			return true;
 
 		} else if(args[0].equalsIgnoreCase("config")) {
 			if(!sender.hasPermission("event-uhc.config")) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous n'avez pas la permission.");
+				sender.sendMessage(Language.WARNING_PERMISSION.getMessage());
 				return true;
 			}
 			if(gameData.isGameRunning()) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous ne pouvez pas faire ça alors que la partie est lancée.");
+				sender.sendMessage(Language.WARNING_GAME_ON.getMessage());
 				return true;
 			}
 			if(sender instanceof Player) {
 				new MainMenu().INVENTORY.open((Player) sender);
 			} else {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Cette commande ne peut être exécutée depuis la console.");
+				sender.sendMessage(Language.WARNING_CONSOL.getMessage());
 			}
 			return true;
 		} else if(args[0].equalsIgnoreCase("finish")) {
 			if(!sender.hasPermission("event-uhc.finish")) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous n'avez pas la permission.");
+				sender.sendMessage(Language.WARNING_PERMISSION.getMessage());
 				return true;
 			}
 			if(gameData.isGameRunning()) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous ne pouvez pas faire ça alors que la partie est lancée.");
+				sender.sendMessage(Language.WARNING_GAME_ON.getMessage());
 				return true;
 			}
 			if(!(sender instanceof Player)) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Cette commande ne peut être exécutée depuis la console.");
+				sender.sendMessage(Language.WARNING_CONSOL.getMessage());
 				return true;
 			}
 			Player player = (Player) sender;
@@ -173,49 +168,49 @@ public class Command implements CommandExecutor,TabCompleter{
 				new DeathItemsMenu().inventory.open(player);
 				return true;
 			}
-			player.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous n'êtes pas entrain de modifier les items.");
+			player.sendMessage(Language.COMMAND_FINISH_ITEMS.getMessage());
 			return true;
 		} else if(args[0].equalsIgnoreCase("team")) {
 			if(gameData.isGameRunning()) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous ne pouvez pas faire ça alors que la partie est lancée.");
+				sender.sendMessage(Language.WARNING_GAME_ON.getMessage());
 				return true;
 			}
 			if(!(sender instanceof Player)) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Cette commande ne peut être exécutée depuis la console.");
+				sender.sendMessage(Language.WARNING_CONSOL.getMessage());
 				return true;
 			}
 			if(Main.CONFIG.getTeamSize() == 1) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous ne pouvez pas faire ça en mode FFA.");
+				sender.sendMessage(Language.ERROR_FFA.getMessage());
 				return true;
 			}
 			Player player = (Player) sender;
-			new TeamMenu().inventory.open(player);
+			new TeamsMenu().inventory.open(player);
 			return true;
 		} else if(args[0].equalsIgnoreCase("respawn")) {
 			if(!(sender instanceof Player)) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Cette commande ne peut être exécutée depuis la console.");
+				sender.sendMessage(Language.WARNING_CONSOL.getMessage());
 				return true;
 			}
 			if(!sender.hasPermission("event-uhc.respawn")) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous n'avez pas la permission.");
+				sender.sendMessage(Language.WARNING_PERMISSION.getMessage());
 				return true;
 			}
 			if(!gameData.isGameRunning()) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous ne pouvez pas faire ça alors que la partie n'est pas lancée.");
+				sender.sendMessage(Language.WARNING_GAME_OFF.getMessage());
 				return true;
 			}
 			if (args.length < 2) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "La syntaxe n'est pas correcte : /event-uhc respawn <pseudo>");
+				sender.sendMessage(Language.COMMAND_SYNTAX.getMessage() + "/event-uhc respawn <pseudo>");
 				return true;
 			}
 
 			Player target = Bukkit.getPlayer(args[1]);
 			if(target == null) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Ce joueur n'existe pas.");
+				sender.sendMessage(Language.COMMAND_PLAYER_NOT_EXIST.getMessage());
 				return true;
 			}
-			if(gameData.getAlivePlayers().contains(target)) {
-				sender.sendMessage(ConfigManager.HEADER + ChatColor.RED + "Ce joueur est toujours vivant.");
+			if(gameData.getAlivePlayers().contains(target.getUniqueId())) {
+				sender.sendMessage(Language.COMMAND_PLAYER_ALIVE.getMessage());
 				return true;
 			}
 			new RespawnMenu(target).inventory.open((Player) sender);
@@ -227,31 +222,31 @@ public class Command implements CommandExecutor,TabCompleter{
 
 	
 	private static void sendHelp(CommandSender sender) {
-		sender.sendMessage(ChatColor.GRAY + ">> " +  ChatColor.YELLOW + ChatColor.BOLD + "/event-uhc" + ChatColor.AQUA + " ... ");
-		sender.sendMessage(ChatColor.YELLOW + "Aliases: /eu,/euhc");
+		sender.sendMessage(Language.COMMAND_HELP_TITLE.getMessage());
+		sender.sendMessage(Language.COMMAND_HELP_ALIASES.getMessage());
 		if(sender.hasPermission("event-uhc.start")) {
-			sender.sendMessage(ChatColor.AQUA + "... "+ ChatColor.BOLD +"start" + ChatColor.GRAY + " : Démarre la partie");
+			sender.sendMessage(Language.COMMAND_HELP_START.getMessage());
 		}
 		if(sender.hasPermission("event-uhc.stop")) {
-			sender.sendMessage(ChatColor.AQUA + "... "+ ChatColor.BOLD +"stop" + ChatColor.GRAY + " : Arête la partie");
+			sender.sendMessage(Language.COMMAND_HELP_STOP.getMessage());
 		}
 		if(sender.hasPermission("event-uhc.config")) {
-			sender.sendMessage(ChatColor.AQUA + "... "+ ChatColor.BOLD +"config" + ChatColor.GRAY + " : Ouvre le panneau de configuration");
+			sender.sendMessage(Language.COMMAND_HELP_CONFIG.getMessage());
 		}
 		if(sender.hasPermission("event-uhc.force")) {
-			sender.sendMessage(ChatColor.AQUA + "... "+ ChatColor.BOLD +"force (border|pvp)" + ChatColor.GRAY + " : Force le pvp ou la bordure");
+			sender.sendMessage(Language.COMMAND_HELP_FORCE.getMessage());
 		}
 		if(sender.hasPermission("event-uhc.reload")) {
-			sender.sendMessage(ChatColor.AQUA + "... "+ ChatColor.BOLD +"reload" + ChatColor.GRAY + " : Recharge la config");
+			sender.sendMessage(Language.COMMAND_HELP_RELOAD.getMessage());
 		}
 		if(sender.hasPermission("event-uhc.respawn")) {
-			sender.sendMessage(ChatColor.AQUA + "... "+ ChatColor.BOLD +"respawn <pseudo>" + ChatColor.GRAY + " : Permet de faire respawn le joueur");
+			sender.sendMessage(Language.COMMAND_HELP_RESPAWN.getMessage());
 		}
 		if(sender.hasPermission("event-uhc.finish")) {
-			sender.sendMessage(ChatColor.AQUA + "... "+ ChatColor.BOLD +"finish" + ChatColor.GRAY + " : Mets fin à l'éditeur d'item de départ et de mort");
+			sender.sendMessage(Language.COMMAND_HELP_FINISH.getMessage());
 		}	
-		sender.sendMessage(ChatColor.AQUA + "... "+ ChatColor.BOLD +"team" + ChatColor.GRAY + " : Ouvre le menu de sélection des teams");
-		sender.sendMessage(ChatColor.AQUA + "... "+ ChatColor.BOLD +"help" + ChatColor.GRAY + " : Envoie ce message");
+		sender.sendMessage(Language.COMMAND_HELP_TEAM.getMessage());
+		sender.sendMessage(Language.COMMAND_HELP_HELP.getMessage());
 	}
 
 

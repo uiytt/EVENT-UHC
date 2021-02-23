@@ -1,16 +1,24 @@
 package fr.uiytt.eventuhc.listeners;
 
-import fr.uiytt.eventuhc.config.ConfigManager;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.game.*;
 import fr.uiytt.eventuhc.gui.DeconnectionRule;
 import fr.uiytt.eventuhc.gui.MainMenu;
 import fr.uiytt.eventuhc.gui.SpectatorInventoryMenu;
-import fr.uiytt.eventuhc.gui.TeamMenu;
+import fr.uiytt.eventuhc.gui.TeamsMenu;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.*;
+import org.bukkit.Tag;
+import org.bukkit.Material;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ExperienceOrb;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -91,7 +99,7 @@ public class GameListener implements Listener {
 
 		deadPlayer.setGameMode(GameMode.SPECTATOR);
 		
-		if(!GameManager.getGameInstance().isEnd() || Main.devMode) {
+		if(!GameManager.getGameInstance().isEnd()) {
 			return;
 		}
 
@@ -99,7 +107,7 @@ public class GameListener implements Listener {
 		Player winner = Bukkit.getPlayer(playersUUID.get(0));
 		GameManager.getGameInstance().stopGame();
 		if(winner == null) {
-			Bukkit.broadcastMessage(ConfigManager.HEADER + ChatColor.RED + "Le dernier joueur n'est pas connecté");
+			Bukkit.broadcastMessage(Language.ERROR_WINNER_NOT_ONLINE.getMessage());
 			return;
 		}
 
@@ -123,8 +131,7 @@ public class GameListener implements Listener {
 		}
 		int timeBeforeRemoving = Main.CONFIG.getDeconnectionRule().getWaitingTime();
 		if(timeBeforeRemoving != 0) {
-			Bukkit.broadcastMessage(ConfigManager.HEADER + ChatColor.RED + "Le joueur " + player.getName() + " sera enlevé de la partie dans " + timeBeforeRemoving +
-					" secondes si il ne se reconnecte pas.");
+			Bukkit.broadcastMessage(Language.WARNING_RECONNECTION.getMessage().replace("%s%",player.getDisplayName()).replace("%s2%",String.valueOf(timeBeforeRemoving)));
 		}
 		Location location = player.getLocation().clone();
 		ItemStack[] inventory = player.getInventory().getContents().clone();
@@ -139,7 +146,7 @@ public class GameListener implements Listener {
 				playersUUID.remove(player.getUniqueId());
 				GameScoreboard scoreboard = GameManager.getGameInstance().getScoreboard();
 
-				Bukkit.broadcastMessage(ConfigManager.HEADER + "Le joueur " + player.getName() + " a été enlevé de la partie.");
+				Bukkit.broadcastMessage(Language.WARNING_PLAYER_REMOVED.getMessage().replace("%s%",player.getDisplayName()));
 				//save stuff and location in case of respawn
 				gameData.getPlayersDeathInfos().put(player.getUniqueId(),
 						new PlayerDeathInfos(
@@ -168,7 +175,7 @@ public class GameListener implements Listener {
 				GameManager.getGameInstance().stopGame();
 				Player winner = Bukkit.getPlayer(playersUUID.get(0));
 				if(winner == null) {
-					Bukkit.broadcastMessage(ConfigManager.HEADER + ChatColor.RED + "Le dernier joueur n'est pas connecté");
+					Bukkit.broadcastMessage(Language.ERROR_WINNER_NOT_ONLINE.getMessage());
 					return;
 				}
 
@@ -270,7 +277,7 @@ public class GameListener implements Listener {
 			if(event.isDropItems()) {
 				if(gameData.getDiamondLimit().containsKey(player.getUniqueId()) && gameData.getDiamondLimit().get(player.getUniqueId()) >= Main.CONFIG.getDiamondlimitAmmount()) {
 					event.setCancelled(true);
-					player.sendMessage(ConfigManager.HEADER + "Vous ne pouvez pas miner plus de " + Main.CONFIG.getDiamondlimitAmmount());
+					player.sendMessage(Language.WARNING_DIAMOND_LIMIT.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getDiamondlimitAmmount())));
 				} else {
 					if(!gameData.getDiamondLimit().containsKey(player.getUniqueId())) {
 						gameData.getDiamondLimit().put(player.getUniqueId(), 1);
@@ -296,6 +303,7 @@ public class GameListener implements Listener {
 			event.setCancelled(true);
 			block.setType(Material.AIR);
 			block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.GOLD_INGOT));
+			assert EntityType.EXPERIENCE_ORB.getEntityClass() != null;
 			ExperienceOrb orb = (ExperienceOrb) block.getWorld().spawn(block.getLocation(),EntityType.EXPERIENCE_ORB.getEntityClass());
 			orb.setExperience(1);
 		} else if(material == Material.IRON_ORE){
@@ -303,6 +311,7 @@ public class GameListener implements Listener {
 			block.setType(Material.AIR);
 			block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.IRON_INGOT));
 			if(ThreadLocalRandom.current().nextInt(10) >= 2) {
+				assert EntityType.EXPERIENCE_ORB.getEntityClass() != null;
 				ExperienceOrb orb = (ExperienceOrb) block.getWorld().spawn(block.getLocation(),EntityType.EXPERIENCE_ORB.getEntityClass());
 				orb.setExperience(1);
 			}
@@ -336,14 +345,14 @@ public class GameListener implements Listener {
 			if(event.getPlayer().hasPermission("event-uhc.config")) {
 				new MainMenu().INVENTORY.open(event.getPlayer());
 			} else {
-				event.getPlayer().sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous n'avez pas la permission.");
+				event.getPlayer().sendMessage(Language.WARNING_PERMISSION.getMessage());
 			}
 		} else if (event.getPlayer().getInventory().getItemInMainHand().getType().toString() .contains("BANNER") && Main.CONFIG.isBannerOpenConfig()) {
 			event.setCancelled(true);
 			if(Main.CONFIG.getTeamSize() != 1) {
-				new TeamMenu().inventory.open(event.getPlayer());
+				new TeamsMenu().inventory.open(event.getPlayer());
 			} else {
-				event.getPlayer().sendMessage(ConfigManager.HEADER + ChatColor.RED + "Vous ne pouvez pas faire ça en mode FFA");
+				event.getPlayer().sendMessage(Language.ERROR_FFA.getMessage());
 			}
 		}  
 	}

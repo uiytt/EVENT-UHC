@@ -1,10 +1,10 @@
 package fr.uiytt.eventuhc.listeners;
 
 import fr.uiytt.eventuhc.Main;
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
-import fr.uiytt.eventuhc.chaosevents.ChaosEventExplodingSpawnMobs;
-import fr.uiytt.eventuhc.chaosevents.ChaosEventLifeShare;
-import fr.uiytt.eventuhc.chaosevents.ChaosEventWeirdFight;
+import fr.uiytt.eventuhc.events.ChaosEvent;
+import fr.uiytt.eventuhc.events.ChaosEventExplosionSpawnMobs;
+import fr.uiytt.eventuhc.events.ChaosEventLifeShare;
+import fr.uiytt.eventuhc.events.ChaosEventWeirdFight;
 import fr.uiytt.eventuhc.game.GameManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -256,8 +256,8 @@ public class ChaosEventsListerner implements Listener {
 					public void run() {
 						Location loc = event.getEntity().getLocation();
 						for (int i = 0; i < 10; i++) {
-							EntityType entity = ChaosEventExplodingSpawnMobs.ENTITY_TYPES.get(
-									ThreadLocalRandom.current().nextInt(ChaosEventExplodingSpawnMobs.ENTITY_TYPES.size()));
+							EntityType entity = ChaosEventExplosionSpawnMobs.ENTITY_TYPES.get(
+									ThreadLocalRandom.current().nextInt(ChaosEventExplosionSpawnMobs.ENTITY_TYPES.size()));
 							event.getEntity().getWorld().spawnEntity(loc, entity);
 						}
 

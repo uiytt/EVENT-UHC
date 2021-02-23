@@ -1,6 +1,6 @@
 package fr.uiytt.eventuhc.game;
 
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
+import fr.uiytt.eventuhc.events.ChaosEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;

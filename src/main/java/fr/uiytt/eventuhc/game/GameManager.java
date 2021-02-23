@@ -1,14 +1,13 @@
 package fr.uiytt.eventuhc.game;
 
-import fr.uiytt.eventuhc.config.ConfigManager;
 import fr.uiytt.eventuhc.Main;
 import fr.uiytt.eventuhc.Register;
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent.Type;
+import fr.uiytt.eventuhc.events.ChaosEvent;
+import fr.uiytt.eventuhc.events.ChaosEvent.Type;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.gui.StartItemsMenu;
 import fr.uiytt.eventuhc.utils.Divers;
 import fr.uiytt.eventuhc.utils.PlayerFromUUIDNotFoundException;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Firework;
@@ -94,7 +93,7 @@ public class GameManager {
 			}
 		}.runTaskTimer(Main.getInstance(), 1, 5);
 			
-		Bukkit.getServer().broadcastMessage(ConfigManager.HEADER + "Bravo à " + ChatColor.BLUE + winner.getName() + ChatColor.GRAY + " pour sa victoire !!!");
+		Bukkit.getServer().broadcastMessage(Language.GAME_VICTORY.getMessage().replace("%s",winner.getDisplayName()));
 	}
 	public void enablePVP() {
 		gameData.setWasPvpEnabled(true);
@@ -103,7 +102,7 @@ public class GameManager {
 			@Override
 			public void run() {
 				for(int i=5;i>0;i--) {
-					Bukkit.getServer().broadcastMessage(ConfigManager.HEADER + "Le " + ChatColor.BLUE + "pvp " + ChatColor.GRAY + "sera activé dans " + ChatColor.RED + i + ChatColor.GRAY + " seconde(s).");
+					Bukkit.getServer().broadcastMessage(Language.GAME_PVP_SOON.getMessage().replace("%s",String.valueOf(i)));
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
@@ -138,7 +137,7 @@ public class GameManager {
 							}
 						}
 						
-						Bukkit.getServer().broadcastMessage(ConfigManager.HEADER + "Le " + ChatColor.BLUE + "pvp " + ChatColor.GRAY + "vient d'être activé.");
+						Bukkit.getServer().broadcastMessage(Language.GAME_PVP_ACTIVATED.getMessage());
 						
 					}
 				}.runTask(Main.getInstance());
@@ -155,7 +154,7 @@ public class GameManager {
 			public void run() {
 				for(int i=5;i>0;i--) {
 					//Async 5s timer
-					Bukkit.getServer().broadcastMessage(ConfigManager.HEADER + "La " + ChatColor.GREEN + "bordure " + ChatColor.GRAY + "commence à bouger dans " + ChatColor.RED + i + ChatColor.GRAY + " seconde(s).");
+					Bukkit.getServer().broadcastMessage(Language.GAME_BORDER_SOON.getMessage().replace("%s",String.valueOf(i)));
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
@@ -181,7 +180,7 @@ public class GameManager {
 						}
 						//Move border
 						int border_end = Main.CONFIG.getBorderEnd();
-						Bukkit.getServer().broadcastMessage(ConfigManager.HEADER + "La " + ChatColor.GREEN + "bordure " + ChatColor.GRAY + "commence à bouger.");
+						Bukkit.getServer().broadcastMessage(Language.GAME_BORDER_ACTIVATED.getMessage());
 						world.getWorldBorder().setSize(border_end, (long) (border_end / Main.CONFIG.getBorderBlockPerSecond() * 20));
 						scoreboard.updateBorderTimer(-1);
 					}
@@ -209,7 +208,7 @@ public class GameManager {
 	private void startPlayerTP(List<Player> players) {
 		players.forEach(player -> {
 			for(PotionEffect potion : player.getActivePotionEffects()) {player.removePotionEffect(potion.getType());}
-			player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20.0);
+			Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20.0);
 			player.setLevel(0);
 			player.setExp(0);
 			player.setFoodLevel(20);
@@ -220,7 +219,7 @@ public class GameManager {
 			player.setAbsorptionAmount(0);
 			scoreboard.addPlayer(player);
 		});
-		Bukkit.broadcastMessage(ConfigManager.HEADER + "Les joueurs vont être téléportés.");
+		Bukkit.broadcastMessage(Language.GAME_TELEPORTING.getMessage());
 		
 		if(Main.CONFIG.getTeamSize() == 1) {
 			new BukkitRunnable() {
@@ -230,7 +229,7 @@ public class GameManager {
 					for(int i=0;i<players.size();i++) {
 						Player player = players.get(i);
 						Location loc = Divers.randomLocation(world);
-						Bukkit.broadcastMessage(ConfigManager.HEADER + "Téléportation du joueur " + ChatColor.BLUE + (i+1) + ChatColor.GRAY + "/" + ChatColor.BLUE + players.size());
+						Bukkit.broadcastMessage( Language.GAME_TELEPORTING_PLAYER.getMessage().replace("%s%",String.valueOf(i+1)).replace("%s2%",String.valueOf(players.size())) );
 						new BukkitRunnable() {
 							
 							@Override
@@ -259,7 +258,7 @@ public class GameManager {
 					for(int i=0;i<teams.size();i++) {
 						Location loc = Divers.randomLocation(world);
 						GameTeam team = teams.get(i);
-						Bukkit.broadcastMessage(ConfigManager.HEADER + "Téléportation de la team " + ChatColor.BLUE + (i+1) + ChatColor.GRAY + "/" + ChatColor.BLUE + teams.size());
+						Bukkit.broadcastMessage(Language.GAME_TELEPORTING_PLAYER.getMessage().replace("%s%",String.valueOf(i+1)).replace("%s2%",String.valueOf(teams.size())));
 						new BukkitRunnable() {
 							
 							@Override
@@ -324,7 +323,7 @@ public class GameManager {
 		players.forEach(player -> {
 			player.setGameMode(GameMode.ADVENTURE);
 			player.teleport(spawn);
-			player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE,600,4,false,false),true);
+			player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE,600,4,false,false));
 			scoreboard.removePlayer(player);
 		});
 		gameData.getCurrentChaosEvents().forEach(ChaosEvent::disable);

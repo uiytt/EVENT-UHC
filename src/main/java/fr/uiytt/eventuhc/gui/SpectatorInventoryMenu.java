@@ -5,6 +5,7 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -17,7 +18,7 @@ public class SpectatorInventoryMenu implements InventoryProvider {
 
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_SpectatorInventory")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Items du joueur")
+			.title(Language.GUI_TITLE_RESPAWN.getMessage())
 			.size(6, 9)
 			.provider(this)
 			.manager(Main.getInvManager())

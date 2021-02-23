@@ -1,5 +1,7 @@
 package fr.uiytt.eventuhc.utils;
 
+import fr.uiytt.eventuhc.config.Language;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -7,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Divers {
@@ -18,6 +21,10 @@ public class Divers {
 	public static ItemStack[] securizeItemStackInventory(ItemStack[] defaultItems) {
 		if(defaultItems != null && defaultItems.length == 41) {return defaultItems;}
 		return new ItemStack[41];
+	}
+
+	public static ItemStack ItemStackBuilder(Material material, String name, List<String> lore) {
+		return ItemStackBuilder(material,name,lore.toArray(new String[0]),1);
 	}
 
 	public static ItemStack ItemStackBuilder(Material material,String name, String[] lore,int ammount) {
@@ -95,5 +102,6 @@ public class Divers {
 	public static Location highestBlock(Location loc) {
 		return highestBlock(loc, true);
 	}
-	
+
+
 }

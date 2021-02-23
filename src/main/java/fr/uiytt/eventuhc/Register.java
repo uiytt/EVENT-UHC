@@ -1,6 +1,6 @@
 package fr.uiytt.eventuhc;
 
-import fr.uiytt.eventuhc.chaosevents.*;
+import fr.uiytt.eventuhc.events.*;
 import fr.uiytt.eventuhc.listeners.ChaosEventsListerner;
 import fr.uiytt.eventuhc.listeners.GameListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,7 +27,7 @@ public class Register {
 		chaosEvents.add(new ChaosEventTeleportationOnTop());
 		chaosEvents.add(new ChaosEventSlowness());
 		chaosEvents.add(new ChaosEventAlwaysTnt());
-		chaosEvents.add(new ChaosEventSunlightkill());
+		chaosEvents.add(new ChaosEventSunlightKills());
 		chaosEvents.add(new ChaosEventWaterIsPoison());
 		chaosEvents.add(new ChaosEventSkyHigh());
 		chaosEvents.add(new ChaosEventTeleportationToOthers());
@@ -58,7 +58,7 @@ public class Register {
 		**/
 		
 		chaosEvents.add(new ChaosEventBlaze());
-		chaosEvents.add(new ChaosEventExplodingSpawnMobs());
+		chaosEvents.add(new ChaosEventExplosionSpawnMobs());
 		chaosEvents.add(new ChaosEventRainingMobs());
 		chaosEvents.add(new ChaosEventSnowBallZombie());
 		chaosEvents.add(new ChaosEventBFF());

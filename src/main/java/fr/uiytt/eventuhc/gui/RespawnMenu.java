@@ -5,6 +5,7 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.game.GameManager;
 import fr.uiytt.eventuhc.game.PlayerDeathInfos;
 import fr.uiytt.eventuhc.utils.Divers;
@@ -27,8 +28,8 @@ public class RespawnMenu implements InventoryProvider {
 	
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_RespawnMenu")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Paramètres avancés")
 			.size(3, 9)
+			.title(Language.GUI_TITLE_RESPAWN.getMessage())
 			.provider(this)
 			.manager(Main.getInvManager())
 			.build();
@@ -51,16 +52,13 @@ public class RespawnMenu implements InventoryProvider {
         SkullMeta playerheadmeta = (SkullMeta) playerhead.getItemMeta();
         playerheadmeta.setOwningPlayer(Bukkit.getOfflinePlayer(target.getUniqueId()));
         playerheadmeta.setDisplayName(target.getName());
-        playerheadmeta.setLore(Arrays.asList(ChatColor.GRAY +"Le joueur réapparaîtra avec 30s ",
-				ChatColor.GRAY +"de resistance au feu,",
-				ChatColor.GRAY +"5s de Résistance IV et",
-				ChatColor.GRAY +"1m de water breathing."));
+        playerheadmeta.setLore(Arrays.asList(Language.splitLore(Language.GUI_RESPAWN_EFFECTS.getMessage())));
         playerhead.setItemMeta(playerheadmeta);
         contents.set(1, 4, ClickableItem.empty(playerhead));
-        contents.set(2, 4,ClickableItem.of(Divers.ItemStackBuilder(Material.EMERALD_BLOCK, ChatColor.GREEN + "Respawn " + target.getName()), event -> {
-        	target.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20*30, 0, false), true);
-        	target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*5, 3, false), true);
-        	target.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 20*60, 1, false), true);
+        contents.set(2, 4,ClickableItem.of(Divers.ItemStackBuilder(Material.EMERALD_BLOCK, Language.GUI_RESPAWN_NAME.getMessage().replace("%s%",target.getDisplayName())), event -> {
+        	target.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20*30, 0, false));
+        	target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*5, 3, false));
+        	target.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 20*60, 1, false));
         	PlayerDeathInfos infos = GameManager.getGameInstance().getGameData().getPlayersDeathInfos().get(target.getUniqueId());
         	if(regivestuff) {
         		target.getInventory().setContents(infos.getInventory());
@@ -94,33 +92,25 @@ public class RespawnMenu implements InventoryProvider {
 
 	@Override
 	public void update(Player player, InventoryContents contents) {
-		if(randomTP) {
-			contents.set(1, 2, ClickableItem.of(Divers.ItemStackBuilder(Material.ENDER_PEARL, ChatColor.YELLOW + "RandomTP", new String[] {
-				ChatColor.GRAY + "Le randomTP est " + ChatColor.GREEN + " activé",
-				ChatColor.GRAY +"le joueur réapparaîtra à des cordonées ",
-				ChatColor.GRAY +"aléatoires."
-			}), event -> randomTP = false));
-		} else {
-			contents.set(1, 2, ClickableItem.of(Divers.ItemStackBuilder(Material.ENDER_PEARL, ChatColor.YELLOW + "RandomTP", new String[] {
-					ChatColor.GRAY + "Le randomTP est " + ChatColor.RED + " désactivé",
-					ChatColor.GRAY +"le joueur réapparaîtra à l'endroit ",
-					ChatColor.GRAY +"de sa mort."
-			}), event -> randomTP = true));
-		}
-		if(regivestuff) {
-			contents.set(1, 6, ClickableItem.of(Divers.ItemStackBuilder(Material.CHEST, ChatColor.YELLOW + "Stuff", new String[] {
-				ChatColor.GRAY + "Le stuff est " + ChatColor.GREEN + " activé",
-				ChatColor.GRAY +"le joueur réapparaîtra avec son ",
-				ChatColor.GRAY +"stuff de mort."
-			}), event -> regivestuff = false));
-		} else {
-			contents.set(1, 6, ClickableItem.of(Divers.ItemStackBuilder(Material.CHEST, ChatColor.YELLOW + "Stuff", new String[] {
-					ChatColor.GRAY + "Le stuff est " + ChatColor.RED + " désactivé",
-					ChatColor.GRAY +"le joueur réapparaîtra avec un inventaire ",
-					ChatColor.GRAY +"vide."
-			}), event -> regivestuff = true));
-		}
-		
+		String randomTpEnable = randomTP ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
+		contents.set(1,2,ClickableItem.of(Divers.ItemStackBuilder(
+			Material.ENDER_PEARL,
+			Language.GUI_RESPAWN_RANDOM_TP_NAME.getMessage(),
+			Language.splitLore(Language.GUI_RESPAWN_RANDOM_TP_LORE.getMessage().replace("%enable%",randomTpEnable))
+			),event -> {
+				randomTP = !randomTP;
+				inventory.open(player);
+			}));
+
+		String regiveStuffEnable = regivestuff ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
+		contents.set(1,6,ClickableItem.of(Divers.ItemStackBuilder(
+			Material.CHEST,
+			Language.GUI_RESPAWN_GIVE_STUFF_NAME.getMessage(),
+			Language.splitLore(Language.GUI_RESPAWN_GIVE_STUFF_LORE.getMessage().replace("%enable%",regiveStuffEnable))
+			), event -> {
+				regivestuff = !regivestuff;
+				inventory.open(player);
+		}));
 
 	}
 

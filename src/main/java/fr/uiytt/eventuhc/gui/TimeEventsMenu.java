@@ -5,7 +5,8 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
-import fr.uiytt.eventuhc.chaosevents.ChaosEvent;
+import fr.uiytt.eventuhc.config.Language;
+import fr.uiytt.eventuhc.events.ChaosEvent;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -15,8 +16,8 @@ public class TimeEventsMenu implements InventoryProvider {
 
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_TimeEventsMenu")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Temps entre deux events")
 			.size(3, 9)
+			.title(Language.GUI_TITLE_EVENTS_TIME.getMessage())
 			.provider(this)
 			.manager(Main.getInvManager())
 			.parent(new MainMenu().INVENTORY)
@@ -63,13 +64,9 @@ public class TimeEventsMenu implements InventoryProvider {
 	}
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
-				Divers.ItemStackBuilder(Material.BOOK, ChatColor.YELLOW + "Temps entre deux events",
-						new String[] {ChatColor.GRAY + "Il y a " + ChatColor.LIGHT_PURPLE + ((double) Main.CONFIG.getTimeBetweenChaosEvents() / 60.0) + " minutes",
-								ChatColor.GRAY + "entre deux events. ",
-								ChatColor.GRAY + "La majorité des events ",
-								ChatColor.GRAY + "dureront le même temps."
-						}
-				)
+			Divers.ItemStackBuilder(Material.BOOK, Language.GUI_MAIN_TIME_EVENTS_NAME.getMessage(),
+				Language.splitLore(Language.GUI_MAIN_TIME_EVENTS_LORE.getMessage().replace("%s%",String.valueOf((double) Main.CONFIG.getTimeBetweenChaosEvents() / 60.0)))
+			)
 		));
 	}
 

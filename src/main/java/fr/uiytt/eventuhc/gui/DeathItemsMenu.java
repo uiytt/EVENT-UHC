@@ -5,6 +5,7 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
@@ -22,8 +23,8 @@ public class DeathItemsMenu implements InventoryProvider {
 	
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_DeathItemsMenu")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Items de mort")
 			.size(6, 9)
+			.title(Language.GUI_TITLE_DEATH_ITEMS.getMessage())
 			.provider(this)
 			.manager(Main.getInvManager())
 			.parent(new MainMenu().INVENTORY)
@@ -59,7 +60,7 @@ public class DeathItemsMenu implements InventoryProvider {
 		
 		contents.set(5,7,ClickableItem.of(Divers.ItemStackBuilder(Material.PAPER, ChatColor.GRAY + "<---"), event -> inventory.getParent().ifPresent(inventory -> inventory.open(player))));
 
-		contents.set(5,8, ClickableItem.of(Divers.ItemStackBuilder(Material.EMERALD_BLOCK, ChatColor.YELLOW + "Ajouter des items", new String[] {ChatColor.GREEN + ">> " + ChatColor.BOLD + "Cliquez pour changer"}), event -> {
+		contents.set(5,8, ClickableItem.of(Divers.ItemStackBuilder(Material.EMERALD_BLOCK, Language.GUI_OTHER_ADD_ITEMS.getMessage()), event -> {
 			player.closeInventory();
 			playersModifyingItems.add(player.getUniqueId());
 			playersGamemode.put(player.getUniqueId(), player.getGameMode());
@@ -67,11 +68,7 @@ public class DeathItemsMenu implements InventoryProvider {
 			player.getInventory().clear();
 			player.getInventory().setContents(Main.CONFIG.getDeathItems());
 			player.setGameMode(GameMode.CREATIVE);
-			player.sendMessage(ChatColor.GREEN + "------------------------------------");
-			player.sendMessage("");
-			player.sendMessage(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + ">> " + ChatColor.GREEN +"Faites " + ChatColor.YELLOW +"/event-uhc finish " + ChatColor.GREEN +"pour sauvegarder les items de départ");
-			player.sendMessage("");
-			player.sendMessage(ChatColor.GREEN + "------------------------------------");
+			player.sendMessage(Language.GUI_OTHER_FINISH.getMessage());
 		}));
 	}
 

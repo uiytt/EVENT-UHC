@@ -5,6 +5,7 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -14,8 +15,8 @@ public class BorderEndMenu implements InventoryProvider {
 
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_BorderEndMenu")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Bordure finale")
 			.size(3, 9)
+			.title(Language.GUI_TITLE_BORDER_END.getMessage())
 			.provider(this)
 			.manager(Main.getInvManager())
 			.parent(new MainMenu().INVENTORY)
@@ -59,11 +60,9 @@ public class BorderEndMenu implements InventoryProvider {
 	}
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
-				Divers.ItemStackBuilder(Material.RED_STAINED_GLASS, ChatColor.YELLOW + "Bordure finale",
-						new String[] {ChatColor.GRAY + "La bordure " + ChatColor.RED + "finale " + ChatColor.GRAY + "est ",
-								ChatColor.GRAY + "définit à " + ChatColor.YELLOW + "+" + Main.CONFIG.getBorderEnd() + "/-" + Main.CONFIG.getBorderEnd()
-						}
-				)
+			Divers.ItemStackBuilder(Material.RED_STAINED_GLASS, Language.GUI_BORDER_END_NAME.getMessage(),
+				Language.splitLore(Language.GUI_BORDER_END_LORE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getBorderEnd())))
+			)
 		));
 	}
 }

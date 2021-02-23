@@ -5,6 +5,7 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.uiytt.eventuhc.Main;
+import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -14,7 +15,7 @@ public class BorderSpeedMenu implements InventoryProvider {
 
 	public final SmartInventory inventory = SmartInventory.builder()
 			.id("EUHC_BorderSpeedMenu")
-			.title(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "Vitesse de la bordure")
+			.title(Language.GUI_TITLE_BORDER_SPEED.getMessage())
 			.size(3, 9)
 			.provider(this)
 			.manager(Main.getInvManager())
@@ -59,10 +60,8 @@ public class BorderSpeedMenu implements InventoryProvider {
 	}
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
-				Divers.ItemStackBuilder(Material.FEATHER, ChatColor.YELLOW + "Vitesse de la bordure",
-						new String[] {ChatColor.GRAY + "La bordure fait du",
-								ChatColor.YELLOW + "" + Main.CONFIG.getBorderBlockPerSecond() + " bloc(s)/seconde"
-						}
+				Divers.ItemStackBuilder(Material.FEATHER, Language.GUI_BORDER_SPEED_NAME.getMessage(),
+					Language.splitLore(Language.GUI_BORDER_SPEED_LORE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getBorderBlockPerSecond())))
 				)
 		));
 	}
