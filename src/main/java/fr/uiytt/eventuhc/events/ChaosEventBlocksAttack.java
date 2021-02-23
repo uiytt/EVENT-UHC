@@ -1,8 +1,6 @@
 package fr.uiytt.eventuhc.events;
 
-import fr.uiytt.eventuhc.config.ConfigManager;
 import fr.uiytt.eventuhc.config.Language;
-import fr.uiytt.eventuhc.utils.Divers;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 

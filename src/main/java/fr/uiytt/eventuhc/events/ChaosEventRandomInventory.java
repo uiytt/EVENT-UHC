@@ -1,6 +1,5 @@
 package fr.uiytt.eventuhc.events;
 
-import fr.uiytt.eventuhc.config.ConfigManager;
 import fr.uiytt.eventuhc.Main;
 import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.game.GameManager;

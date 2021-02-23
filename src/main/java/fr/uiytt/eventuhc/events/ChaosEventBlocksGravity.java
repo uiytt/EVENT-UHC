@@ -1,11 +1,8 @@
 package fr.uiytt.eventuhc.events;
 
-import fr.uiytt.eventuhc.config.ConfigManager;
 import fr.uiytt.eventuhc.Main;
 import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.game.GameManager;
-import fr.uiytt.eventuhc.utils.Divers;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

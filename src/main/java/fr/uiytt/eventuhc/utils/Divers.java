@@ -1,7 +1,5 @@
 package fr.uiytt.eventuhc.utils;
 
-import fr.uiytt.eventuhc.config.Language;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;

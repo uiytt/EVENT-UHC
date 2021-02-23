@@ -1,11 +1,9 @@
 package fr.uiytt.eventuhc;
 
-import fr.uiytt.eventuhc.config.ConfigManager;
-import fr.uiytt.eventuhc.config.Language;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import fr.minuskube.inv.InventoryManager;
+import fr.uiytt.eventuhc.config.ConfigManager;
 import fr.uiytt.eventuhc.game.GameManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
