@@ -50,10 +50,12 @@ public class RespawnMenu implements InventoryProvider {
 		contents.set(1,5,empty_panel);
 		ItemStack playerhead = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta playerheadmeta = (SkullMeta) playerhead.getItemMeta();
-        playerheadmeta.setOwningPlayer(Bukkit.getOfflinePlayer(target.getUniqueId()));
-        playerheadmeta.setDisplayName(target.getName());
-        playerheadmeta.setLore(Arrays.asList(Language.splitLore(Language.GUI_RESPAWN_EFFECTS.getMessage())));
-        playerhead.setItemMeta(playerheadmeta);
+        if(playerheadmeta != null) {
+			playerheadmeta.setOwningPlayer(Bukkit.getOfflinePlayer(target.getUniqueId()));
+			playerheadmeta.setDisplayName(target.getName());
+			playerheadmeta.setLore(Arrays.asList(Language.splitLore(Language.GUI_RESPAWN_EFFECTS.getMessage())));
+			playerhead.setItemMeta(playerheadmeta);
+		}
         contents.set(1, 4, ClickableItem.empty(playerhead));
         contents.set(2, 4,ClickableItem.of(Divers.ItemStackBuilder(Material.EMERALD_BLOCK, Language.GUI_RESPAWN_NAME.getMessage().replace("%s%",target.getDisplayName())), event -> {
         	target.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20*30, 0, false));
@@ -70,6 +72,7 @@ public class RespawnMenu implements InventoryProvider {
         	if(randomTP) {
         		tpLocation = Divers.randomLocation(target.getWorld());
         		tpLocation = Divers.highestBlock(tpLocation);
+				tpLocation.setY(tpLocation.getBlockY() + 1);
         	} else {
         		tpLocation = infos.getLocation();
         	}
