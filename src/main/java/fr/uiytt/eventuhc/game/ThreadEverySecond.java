@@ -49,7 +49,7 @@ public class ThreadEverySecond {
 			eventTimer += 1;
 			
 			//Update pvp timer and events
-			if(!gamedata.isPvp()) {
+			if(!gamedata.wasPvpEnabled()) {
 				scoreboard.updatePvpTimer(pvpTimer - secondFromStart);
 				if(secondFromStart >= pvpTimer - 5) {
 					game.enablePVP();
