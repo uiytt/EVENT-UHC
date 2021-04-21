@@ -53,6 +53,8 @@ public class ConfigManager {
 	private boolean finalHeal;
 	private boolean displayLife;
 	private String languageName;
+	private boolean autoStart;
+	private int autoStartNumber;
 
 	public ConfigManager() {
 		this.configYaml = new Config("config","plugins/Event-UHC");
@@ -90,6 +92,8 @@ public class ConfigManager {
 		comparatorOpenTeams = configYaml.getOrSetDefault("serverOwner.ComparatorOpenTeams", true);
 		deconnectionRule = DeconnectionRule.getFromString(configYaml.getOrSetDefault("serverOwner.DeconnectionRule", DeconnectionRule.NORMAL_KICK.name()));
 		spectatorMessageToPlayers = configYaml.getOrSetDefault("serverOwner.SpectatorMessageToPlayers",true);
+		autoStart = configYaml.getOrSetDefault("serverOwner.AutoStart.enabled",false);
+		autoStartNumber = configYaml.getOrSetDefault("serverOwner.AutoStart.number",10);
 		//Inventory
 		String spawnItemsBase64 = (String) inventoriesJSON.get("spawnItems");
 		if(spawnItemsBase64 != null && !spawnItemsBase64.isEmpty()) {
@@ -349,7 +353,21 @@ public class ConfigManager {
 		configYaml.set("various.DisplayLife",displayLife);
 	}
 
-	public String getLanguageName() {
-		return languageName;
+	public boolean isAutoStart() {
+		return autoStart;
+	}
+
+	public void setAutoStart(boolean autoStart) {
+		configYaml.set("serverOwner.AutoStart.enabled",autoStart);
+		this.autoStart = autoStart;
+	}
+
+	public int getAutoStartNumber() {
+		return autoStartNumber;
+	}
+
+	public void setAutoStartNumber(int autoStartNumber) {
+		configYaml.set("serverOwner.AutoStart.number",autoStartNumber);
+		this.autoStartNumber = autoStartNumber;
 	}
 }

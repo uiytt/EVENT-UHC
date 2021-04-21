@@ -20,6 +20,9 @@ public enum Language {
     GAME_BORDER_ACTIVATED("game.border_activated"),
     GAME_TELEPORTING("game.teleporting"),
     GAME_TELEPORTING_PLAYER("game.teleporting_player"),
+    GAME_XPLAYERS_CONNECTED("game.xplayers_connected"),
+    GAME_ENOUGH_PLAYERS("game.enough_players"),
+    GAME_SART_IN("game.start_in"),
 
     ERROR_WINNER_NOT_ONLINE("warning.error.winner_not_online"),
     ERROR_ADD_TEAM("warning.error.add_team"),
@@ -221,9 +224,9 @@ public enum Language {
         try {
             File languageFile = new File(Main.getInstance().getDataFolder().getAbsolutePath() + File.separator + "languages" + File.separator + langName + ".yml");
             if (!languageFile.exists()) {
-                Main.getLog().fine(languageFile.getName() + " not found, Downloading...");
+                Main.getLog().fine(languageFile.getName() + " not found, extracting...");
                 languageFile.getParentFile().mkdirs();
-                Files.copy(Language.class.getResourceAsStream("/languages/fr.yml"), languageFile.toPath());
+                Files.copy(Language.class.getResourceAsStream("/languages/"+ langName +".yml"), languageFile.toPath());
             }
 
             Yaml languageYaml = new Yaml(langName, "plugins/Event-UHC/languages");

@@ -132,6 +132,12 @@ public class GameListener implements Listener {
 		Player player = event.getPlayer();
 		if(!gameData.isGameRunning() || !gameData.getAlivePlayers().contains(player.getUniqueId())) {
 			GameTeam.removePlayerFromAllTeams(player.getUniqueId());
+			if(!gameData.isGameRunning() && Main.CONFIG.isAutoStart()){
+				Bukkit.broadcastMessage(Language.GAME_XPLAYERS_CONNECTED.getMessage()
+						.replace("%s%",String.valueOf(Bukkit.getOnlinePlayers().size() - 1))
+						.replace("%s2%",String.valueOf(Main.CONFIG.getAutoStartNumber()))
+				);
+			}
 			return;
 		}
 		if(Main.CONFIG.getDeconnectionRule() == DeconnectionRule.NO_KICK) {
@@ -198,37 +204,7 @@ public class GameListener implements Listener {
 		}.runTaskLater(Main.getInstance(), timeBeforeRemoving * 20L);
 		
 	}
-	
-	@EventHandler
-	public void onJoin(PlayerLoginEvent event) {
-		GameData gamedata = GameManager.getGameInstance().getGameData();
-		if(!gamedata.isGameRunning()) {
-			if(Main.CONFIG.getTeamSize() != 1) {
-				int number_of_team = Math.max((int) Math.ceil((double) Bukkit.getOnlinePlayers().size() / (double) Main.CONFIG.getTeamSize()),2);
-				if(number_of_team != gamedata.getTeams().size()) {
-					GameTeam.reorganizeTeam();
-				}
-			}
-			return;
-		}
-		//Spigot want a bit of delay before setting scoreboard
-		new BukkitRunnable() {
-			
-			@Override
-			public void run() {
-				GameManager.getGameInstance().getScoreboard().addPlayer(event.getPlayer());
-				if(gamedata.getAlivePlayers().contains(event.getPlayer().getUniqueId())) {
-					return;
-				}
-				event.getPlayer().setGameMode(GameMode.SPECTATOR);
-				event.getPlayer().getInventory().clear();
-			}
-		}.runTaskLater(Main.getInstance(), 5);
-		
 
-		
-		
-	}
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
 		GameData gameData = GameManager.getGameInstance().getGameData();

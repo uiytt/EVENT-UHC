@@ -43,6 +43,7 @@ import fr.uiytt.eventuhc.events.ChaosEventWeirdFight;
 import fr.uiytt.eventuhc.events.ChaosEventWitherMiddle;
 import fr.uiytt.eventuhc.listeners.ChaosEventsListerner;
 import fr.uiytt.eventuhc.listeners.GameListener;
+import fr.uiytt.eventuhc.listeners.PlayerLoginListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class Register {
 		javaplugin.getCommand("event-uhc").setExecutor(new Command());
 		javaplugin.getCommand("event-uhc").setTabCompleter(new Command());
 		javaplugin.getServer().getPluginManager().registerEvents(new GameListener(), javaplugin);
+		javaplugin.getServer().getPluginManager().registerEvents(new PlayerLoginListener(), javaplugin);
 		javaplugin.getServer().getPluginManager().registerEvents(new ChaosEventsListerner(), javaplugin);
 	}
 

@@ -19,17 +19,17 @@ public class ThreadEverySecond {
 
 	}
 	public void init(Plugin plugin) {
-		new TickRunnable(game).runTaskTimer(plugin, 1, 20);
+		new SecondRunnable(game).runTaskTimer(plugin, 1, 20);
 	}
 	
-	private static class TickRunnable extends BukkitRunnable {
+	private static class SecondRunnable extends BukkitRunnable {
 		private final int pvpTimer;
 		private final int borderTimer;
 		private int secondFromStart = 0;
 		private int eventTimer = 0;
 		private final GameManager game;
 		
-		private TickRunnable(GameManager game) {
+		private SecondRunnable(GameManager game) {
 			pvpTimer = Main.CONFIG.getPvpTimer();
 			borderTimer = Main.CONFIG.getBorderTimer();
 			this.game = game;

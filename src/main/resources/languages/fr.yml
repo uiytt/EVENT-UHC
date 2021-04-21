@@ -11,6 +11,9 @@ game:
   teleporting: "%header% Les joueurs vont être téléportés."
   teleporting_player: "%header% Téléportation du joueur &9%s%&7/&9%s2%"
   teleporting_team: "%header% Téléportation de la team &9%s%&7/&9%s2%"
+  xplayers_connected: "%header% &e%s%&7/&e%s2% &7joueurs connectés."
+  enough_players: "%header% Il y a assez de joueurs pour commencer la partie."
+  start_in: "%header% La partie commence dans &e%s% &7secondes."
 
 warning:
   error:
