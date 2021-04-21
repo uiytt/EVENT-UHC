@@ -22,8 +22,8 @@ public enum Language {
     GAME_TELEPORTING_PLAYER("game.teleporting_player"),
 
     ERROR_WINNER_NOT_ONLINE("warning.error.winner_not_online"),
-    ERROR_FFA("warning.error.ffa"),
     ERROR_ADD_TEAM("warning.error.add_team"),
+    WARNING_FFA("warning.ffa"),
     WARNING_RECONNECTION("warning.reconnection"),
     WARNING_PLAYER_REMOVED("warning.player_removed"),
     WARNING_DIAMOND_LIMIT("warning.diamond_limit"),

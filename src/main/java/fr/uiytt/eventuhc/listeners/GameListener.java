@@ -371,9 +371,9 @@ public class GameListener implements Listener {
 			if(Main.CONFIG.getTeamSize() != 1) {
 				new TeamsMenu().inventory.open(event.getPlayer());
 			} else {
-				event.getPlayer().sendMessage(Language.ERROR_FFA.getMessage());
+				event.getPlayer().sendMessage(Language.WARNING_FFA.getMessage());
 			}
-		}  
+		}
 	}
 
 	@EventHandler

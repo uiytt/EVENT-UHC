@@ -180,7 +180,7 @@ public class Command implements CommandExecutor,TabCompleter{
 				return true;
 			}
 			if(Main.CONFIG.getTeamSize() == 1) {
-				sender.sendMessage(Language.ERROR_FFA.getMessage());
+				sender.sendMessage(Language.WARNING_FFA.getMessage());
 				return true;
 			}
 			Player player = (Player) sender;

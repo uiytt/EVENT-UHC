@@ -1,5 +1,5 @@
-header: "&8&l[&eEVENT-UHC&8&l] &7"
-event_header: "&8&l[&5EVENT-UHC&8&l] &f"
+header: "&8&l[&eEVENT-UHC&8&l]&7"
+event_header: "&8&l[&5EVENT-UHC&8&l]&f"
 error_header: "&8&l[&eEVENT-UHC&8&l] &cERREUR:"
 
 game:
@@ -15,8 +15,8 @@ game:
 warning:
   error:
     winner_not_online: "%error_header% Le gagnant n'est pas connecté."
-    ffa: "%error_header% Vous ne pouvez pas faire ça en mode FFA."
     add_team: "%error_header% Une erreur a eu lieu lors de votre ajout dans cette team."
+  ffa: "%header% &cVous ne pouvez pas faire ça en mode FFA."
   reconnection: "%header% &cLe joueur %s% sera enlevé de la partie dans %s2% secondes si il ne se reconnecte pas."
   player_removed: "%header% Le joueur &c%s% &7a été enlevé de la partie/home/uiytt/Dev/Serveurs/spigot-1.14.4/plugins."
   diamond_limit: "%header% Vous ne pouvez pas miner plus de &b%s% diamants&7."
