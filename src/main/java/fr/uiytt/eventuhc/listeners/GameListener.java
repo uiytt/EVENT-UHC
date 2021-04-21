@@ -156,15 +156,19 @@ public class GameListener implements Listener {
 
 				Bukkit.broadcastMessage(Language.WARNING_PLAYER_REMOVED.getMessage().replace("%s%",player.getDisplayName()));
 				//save stuff and location in case of respawn
+				GameTeam playerTeam = gameData.getPlayersTeam().get(player.getUniqueId());
+
 				gameData.getPlayersDeathInfos().put(player.getUniqueId(),
 						new PlayerDeathInfos(
 								player, 
 								location,
 								inventory,
-								gameData.getPlayersTeam().get(player.getUniqueId())
+								playerTeam
 						)
 				);
-
+				if(playerTeam != null) {
+					playerTeam.removePlayer(player.getUniqueId());
+				}
 				scoreboard.updateNbrPlayer(playersUUID.size());
 				for (ItemStack item : inventory) {
 					if(item == null) {continue;}
@@ -202,7 +206,7 @@ public class GameListener implements Listener {
 			if(Main.CONFIG.getTeamSize() != 1) {
 				int number_of_team = Math.max((int) Math.ceil((double) Bukkit.getOnlinePlayers().size() / (double) Main.CONFIG.getTeamSize()),2);
 				if(number_of_team != gamedata.getTeams().size()) {
-					GameTeam.reorganize_team();
+					GameTeam.reorganizeTeam();
 				}
 			}
 			return;
@@ -213,15 +217,15 @@ public class GameListener implements Listener {
 			@Override
 			public void run() {
 				GameManager.getGameInstance().getScoreboard().addPlayer(event.getPlayer());
-				
+				if(gamedata.getAlivePlayers().contains(event.getPlayer().getUniqueId())) {
+					return;
+				}
+				event.getPlayer().setGameMode(GameMode.SPECTATOR);
+				event.getPlayer().getInventory().clear();
 			}
-		}.runTaskLater(Main.getInstance(), 1);
+		}.runTaskLater(Main.getInstance(), 5);
 		
-		if(gamedata.getAlivePlayers().contains(event.getPlayer().getUniqueId())) {
-			return;
-		}
-		event.getPlayer().setGameMode(GameMode.SPECTATOR);
-		event.getPlayer().getInventory().clear();
+
 		
 		
 	}

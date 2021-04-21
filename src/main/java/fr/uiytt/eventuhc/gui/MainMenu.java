@@ -84,7 +84,7 @@ public class MainMenu implements InventoryProvider {
 					Language.splitLore(Language.GUI_MAIN_TEAMS_FFA_LORE.getMessage())
 				), event -> {
 					Main.CONFIG.setTeamSize(2);
-					GameTeam.reorganize_team();
+					GameTeam.reorganizeTeam();
 			}));
 		} else {
 			contents.set(2, 4, ClickableItem.of(
@@ -95,7 +95,7 @@ public class MainMenu implements InventoryProvider {
 					if(Main.CONFIG.getTeamSize() == 8) {
 						Main.CONFIG.setTeamSize(1);
 					}
-					GameTeam.reorganize_team();
+					GameTeam.reorganizeTeam();
 			}));
 		}
 	}

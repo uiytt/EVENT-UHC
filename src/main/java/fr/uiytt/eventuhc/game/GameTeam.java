@@ -81,7 +81,7 @@ public class GameTeam {
 	/**
 	 * This register new teams in function of the number of player, the size of the team etc..
 	 */
-	public static void reorganize_team() {
+	public static void reorganizeTeam() {
 		GameData gameData = GameManager.getGameInstance().getGameData();
 		gameData.getTeams().forEach(GameTeam::removeAllPlayers);
 		gameData.getTeams().clear();

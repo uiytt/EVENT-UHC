@@ -330,7 +330,7 @@ public class GameManager {
 
 		gameData.setGameRunning(false);
 		setGameInstance(new GameManager());
-		GameTeam.reorganize_team();
+		GameTeam.reorganizeTeam();
 	}
 	
 	/**
