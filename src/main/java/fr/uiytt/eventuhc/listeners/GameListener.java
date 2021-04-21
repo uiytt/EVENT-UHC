@@ -232,9 +232,8 @@ public class GameListener implements Listener {
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
 		GameData gameData = GameManager.getGameInstance().getGameData();
-		if(!gameData.isGameRunning()) {
-			return;
-		}
+		if(!gameData.isGameRunning()) return;
+
 		event.setCancelled(true);
 		Player player = event.getPlayer();
 		if(gameData.getAlivePlayers().contains(event.getPlayer().getUniqueId())) {
@@ -242,7 +241,15 @@ public class GameListener implements Listener {
 				Bukkit.getOnlinePlayers().forEach(loop_player -> loop_player.sendMessage(ChatColor.YELLOW + player.getDisplayName() + ": " + ChatColor.GRAY + event.getMessage()));
 			} else {
 				GameTeam playerTeam = gameData.getPlayersTeam().get(player.getUniqueId());
-				Bukkit.getOnlinePlayers().forEach(loop_player -> loop_player.sendMessage(playerTeam.getColor().getChat() + playerTeam.getName() + player.getDisplayName() + ": " + ChatColor.GRAY + event.getMessage()));
+				if(event.getMessage().charAt(0) == '*') {
+					Bukkit.broadcastMessage(playerTeam.getColor().getChat() + playerTeam.getName() + " " + player.getDisplayName() + ": " + ChatColor.GRAY + event.getMessage().substring(1));
+				} else {
+					for(UUID mateUUID : playerTeam.getPlayersUUIDs()) {
+						Player matePlayer = Bukkit.getPlayer(mateUUID);
+						matePlayer.sendMessage(ChatColor.translateAlternateColorCodes('&',"&8&l[" + playerTeam.getColor().getChat() + "EQUIPE&8&l] &e" + player.getDisplayName() + "&7: " + event.getMessage()));
+					}
+				}
+
 			}
 		} else {
 			for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
