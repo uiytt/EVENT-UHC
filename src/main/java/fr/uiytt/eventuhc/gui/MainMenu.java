@@ -9,8 +9,10 @@ import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.game.GameTeam;
 import fr.uiytt.eventuhc.utils.Divers;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class MainMenu implements InventoryProvider {
 
@@ -85,6 +87,7 @@ public class MainMenu implements InventoryProvider {
 				), event -> {
 					Main.CONFIG.setTeamSize(2);
 					GameTeam.reorganizeTeam();
+					Bukkit.getOnlinePlayers().forEach(player1 -> player1.getInventory().addItem(new ItemStack(Material.WHITE_BANNER)));
 			}));
 		} else {
 			contents.set(2, 4, ClickableItem.of(
@@ -94,6 +97,14 @@ public class MainMenu implements InventoryProvider {
 					Main.CONFIG.setTeamSize(Main.CONFIG.getTeamSize() + 1);
 					if(Main.CONFIG.getTeamSize() == 8) {
 						Main.CONFIG.setTeamSize(1);
+					}
+					for(Player player1 : Bukkit.getOnlinePlayers()) {
+						for(int i=0;i<41;i++) {
+							ItemStack item = player1.getInventory().getItem(i);
+							if(item == null || !item.getType().getKey().toString().contains("banner")) continue;
+							if(Main.CONFIG.getTeamSize() == 8) { player1.getInventory().setItem(i,new ItemStack(Material.AIR)); }
+							else {player1.getInventory().setItem(i,new ItemStack(Material.WHITE_BANNER));}
+						}
 					}
 					GameTeam.reorganizeTeam();
 			}));

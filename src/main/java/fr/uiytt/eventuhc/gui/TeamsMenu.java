@@ -89,7 +89,7 @@ public class TeamsMenu implements InventoryProvider {
 							e.printStackTrace();
 						}
 						if(player.getInventory().getItemInMainHand().getType().toString().contains("BANNER")) {
-							player.getInventory().setItemInMainHand(new ItemStack(team.getColor().getBanner()));
+							player.getInventory().setItemInMainHand(Divers.ItemStackBuilder(team.getColor().getBanner(),team.getColor().getChat() + "" + ChatColor.BOLD + team.getName()));
 						}
 						inventory.open(player,page);
 					}
