@@ -152,7 +152,7 @@ events:
     enable: "%event_header% Course de cochons ! (vous êtes bloqué sur un cochon avec speed 2)."
   stone_is_lava:
     lore: ""
-    enable: "%event_header% &c&lLa stone autour des joueurs va se transformer en lave dans 60 secondes (protégez vous) "
+    enable: "%event_header% &c&lLa stone autour des joueurs va se transformer en lave dans %s% secondes (protégez vous)."
   sunlight_kills:
     lore: "Au soleil, les joueurs meurent"
     enable: "%event_header% Restez chez vous si vous ne nouvez pas bruler... Vous brulerez au soleil dans 20 secondes. (oui vous brulez aussi la nuit TGCM)."

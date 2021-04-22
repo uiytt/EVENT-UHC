@@ -3,6 +3,7 @@ package fr.uiytt.eventuhc.events;
 import fr.uiytt.eventuhc.Main;
 import fr.uiytt.eventuhc.config.Language;
 import fr.uiytt.eventuhc.game.GameManager;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -22,7 +23,9 @@ public class ChaosEventStoneIsLava extends ChaosEvent {
 	@Override
 	protected void onEnable() {
 		super.onEnable();
-		Bukkit.broadcastMessage(Language.EVENT_STONE_IS_LAVA_ENABLE.getMessage());
+		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',"&m                                                                    "));
+		Bukkit.broadcastMessage(Language.EVENT_STONE_IS_LAVA_ENABLE.getMessage().replace("%s%","60"));
+		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',"&m                                                                    "));
 		new BukkitRunnable() {
 			
 			@Override
