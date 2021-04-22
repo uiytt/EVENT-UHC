@@ -12,3 +12,19 @@ The Event-UHC is a simple UHC where every X amount of time a random event start.
 This game is not for players who want a serious game, it's not a fair game but it can be very fun.
 
 
+## Setup
+Install spigot or paper in 1.14+
+<br>Download the plugin on the spigot page and put it in the plugins/ folder
+<br>Op yourself, invite players
+<br>use /eu config to configurate the game 
+<br>use /eu start to start the game (you can set an auto start in the config.yml)
+
+## Rules
+UHC (soon)
+<br>[Events](https://github.com/uiytt/Event-UHC/wiki/List-of-Events)
+
+## Credits
+Creator uiytt
+
+***
+For more info, look at the [WIKI](https://github.com/uiytt/Event-UHC/wiki)
