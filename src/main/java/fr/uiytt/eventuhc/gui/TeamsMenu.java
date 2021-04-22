@@ -65,8 +65,8 @@ public class TeamsMenu implements InventoryProvider {
 				itemLore.add(ChatColor.GRAY + "-> " + playerFromTeam.getName());
 			}
 			int currentTeamSize = team.getPlayersUUIDs().size();
-			if(currentTeamSize < Main.CONFIG.getTeamSize()) {
-				while(currentTeamSize < Main.CONFIG.getTeamSize()) {
+			if(currentTeamSize < Main.getConfigManager().getTeamSize()) {
+				while(currentTeamSize < Main.getConfigManager().getTeamSize()) {
 					itemLore.add(ChatColor.GRAY + "-> " + "――――――――");
 					currentTeamSize++;
 				}
@@ -80,7 +80,7 @@ public class TeamsMenu implements InventoryProvider {
 						itemLore.toArray(new String[]{})
 					),
 					event -> {
-						if(team.getPlayersUUIDs().size() >= Main.CONFIG.getTeamSize()) {return;}
+						if(team.getPlayersUUIDs().size() >= Main.getConfigManager().getTeamSize()) {return;}
 						try {
 							GameTeam.removePlayerFromAllTeams(player.getUniqueId());
 							team.addPlayer(player.getUniqueId());

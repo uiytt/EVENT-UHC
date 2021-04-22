@@ -26,28 +26,28 @@ public class FlintsDropMenu implements InventoryProvider {
 	public void init(Player player, InventoryContents contents) {
 		contents.fillBorders(ClickableItem.empty(Divers.ItemStackBuilder(Material.GRAY_STAINED_GLASS_PANE, ChatColor.GRAY + "", new String[] {} )));
 		contents.set(1,1, ClickableItem.of(Divers.ItemStackBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "-10"), event -> {
-			Main.CONFIG.setFlintsDrop(Math.max(0, Main.CONFIG.getFlintsDrop() - 10));
+			Main.getConfigManager().setFlintsDrop(Math.max(0, Main.getConfigManager().getFlintsDrop() - 10));
 			updateItemValue(contents);
 		}));
 		contents.set(1,2, ClickableItem.of(Divers.ItemStackBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "-5"), event -> {
-			Main.CONFIG.setFlintsDrop(Math.max(0, Main.CONFIG.getFlintsDrop() - 5));
+			Main.getConfigManager().setFlintsDrop(Math.max(0, Main.getConfigManager().getFlintsDrop() - 5));
 			updateItemValue(contents);
 		}));
 		contents.set(1,3, ClickableItem.of(Divers.ItemStackBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "-1"), event -> {
-			Main.CONFIG.setFlintsDrop(Math.max(0, Main.CONFIG.getFlintsDrop() - 1));
+			Main.getConfigManager().setFlintsDrop(Math.max(0, Main.getConfigManager().getFlintsDrop() - 1));
 			updateItemValue(contents);
 		}));
 
 		contents.set(1,5, ClickableItem.of(Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+1"), event -> {
-			Main.CONFIG.setFlintsDrop(Math.min(Main.CONFIG.getFlintsDrop() + 1,100));
+			Main.getConfigManager().setFlintsDrop(Math.min(Main.getConfigManager().getFlintsDrop() + 1,100));
 			updateItemValue(contents);
 		}));
 		contents.set(1,6, ClickableItem.of(Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+5"), event -> {
-			Main.CONFIG.setFlintsDrop(Math.min(Main.CONFIG.getFlintsDrop() + 5,100));
+			Main.getConfigManager().setFlintsDrop(Math.min(Main.getConfigManager().getFlintsDrop() + 5,100));
 			updateItemValue(contents);
 		}));
 		contents.set(1,7, ClickableItem.of(Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+10"), event -> {
-			Main.CONFIG.setFlintsDrop(Math.min(Main.CONFIG.getFlintsDrop() + 10,100));
+			Main.getConfigManager().setFlintsDrop(Math.min(Main.getConfigManager().getFlintsDrop() + 10,100));
 			updateItemValue(contents);
 		}));
 		contents.set(0, 0, ClickableItem.of(Divers.ItemStackBuilder(Material.PAPER, ChatColor.GRAY + "<---"), event -> inventory.getParent().ifPresent(inventory -> inventory.open(player))));
@@ -60,7 +60,7 @@ public class FlintsDropMenu implements InventoryProvider {
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
 				Divers.ItemStackBuilder(Material.FLINT, Language.GUI_ADVANCED_FLINTS_DROP_NAME.getMessage(),
-						Language.splitLore(Language.GUI_ADVANCED_FLINTS_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getFlintsDrop())))
+						Language.splitLore(Language.GUI_ADVANCED_FLINTS_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.getConfigManager().getFlintsDrop())))
 				)
 		));
 	}

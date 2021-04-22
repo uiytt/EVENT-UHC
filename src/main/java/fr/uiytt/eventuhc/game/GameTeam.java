@@ -85,14 +85,14 @@ public class GameTeam {
 		GameData gameData = GameManager.getGameInstance().getGameData();
 		gameData.getTeams().forEach(GameTeam::removeAllPlayers);
 		gameData.getTeams().clear();
-		if(Main.CONFIG.getTeamSize() == 1) {
+		if(Main.getConfigManager().getTeamSize() == 1) {
 			return;
 		}
 		List<ColorLink> colors = Arrays.asList(ColorLink.values());
 
 		//Create teams with color, if more than one team for a color, add number 
 		// ex : RED,BlUE,YELLOW, etc.. RED[1],BLUE[1]
-		int numberTeam = Math.max((int) Math.ceil((double) Bukkit.getOnlinePlayers().size() / (double) Main.CONFIG.getTeamSize()),2);
+		int numberTeam = Math.max((int) Math.ceil((double) Bukkit.getOnlinePlayers().size() / (double) Main.getConfigManager().getTeamSize()),2);
 		int colorindex = 0;
 		int numberOfSameColor = 1;
 		for(int i=0;i<numberTeam;i++ ) {

@@ -1,0 +1,109 @@
+############################################################
+#                                                          #
+#                       EVENT-UHC                          #
+#                    (1.12.2-1.16.4)                       #
+#                                                          #
+############################################################
+
+#Everything here can be modified directly in a GUI using '/eu config'
+#The only exception are the "serverOwner" and the "world" parts
+
+#In this section the time must be in minutes but can include decimals : 5.3
+timer:
+   #Time in minutes before the pvp is activated
+   Pvp: 30
+
+   #Time in minutes before the border start moving
+   Border: 90
+
+   #How long before the first event start and how long before each event after that.
+   #Most events will also last this period of time but not all of them.
+   TimeBetweenEvents: 7
+
+border:
+   #How many blocks should the border travel per second
+   #This has no effect on the activation of the border
+   BlockPerSecond: 1.0
+
+   #The starting position of the border
+   # 1000 = +1000/-1000
+   StartSize: 1000
+
+   #The final position of the border
+   #50 = +50/-50
+   EndSize: 50
+
+various:
+   #The likelihood of the item dropping
+   Drops:
+      #The custom drop rate for flints only works when breaking a gravel block.
+      FlintsRate: 50
+      #The custom drop rate for flints is used when leaves decay or when leaves are broken
+      #Every trees drop apples
+      ApplesRate: 3.5
+
+   #Do players regain all their lives when the pvp is activated
+   FinalHeal: false
+
+   #Is the ammount of health displayed in the tablist
+   DisplayLife: true
+
+   #Are ores and foods automatically smelt when broken/killed
+   CutClean: false
+
+   #The ammount of player per team
+   #Just use 1 to indicate that this is a FFA
+   TeamSize: 1
+
+   #Are players allowed to create potion of tier 2 (Strength 2, Speed 2, etc..)
+   LVL2Potions: false
+
+   #Use this part to limit how much diamonds the player is allowed to mine
+   #This does not protect against TNT
+   DiamondLimit:
+      #If it's not activated player can mine as much diamond as they want.
+      enable: false
+      #If it's enabled, how many diamonds is the player allowed to mine
+      ammount: 17
+
+#This part is not directly modifiable from the GUI
+serverOwner:
+
+   #Does clicking on a banner open a GUI allowing the player to chose his team
+   #If not the player can still use '/eu team'
+   BannerOpenTeams: true
+
+   #Does clicking on a comparator open a GUI allowing the player to config the game
+   #The GUI only open if the player has the permission for the config
+   #If not the player can still use '/eu config'
+   ComparatorOpenConfig: true
+
+   #If a player is dead, are his messages displayed to living people
+   SpectatorMessageToPlayers: true
+
+   #Currently the only available language is French (use 'fr')
+   #I'm working on the english translation, you are free to add your own translation on the github.
+   language: fr
+
+   #Does the game automatically start (after 60 secondes) when there is enough players
+   AutoStart:
+     #If this is set to true, the game will start after there is enough players
+     enabled: false
+     #How many players does it need before starting the game
+     number: 10
+
+   #This tell how the plugin should handle player disconecting
+   #This does not manage things like punition for players leaving during a fight.
+   #If you are unsure you should keep NORMAL_KICK and use '/eu respawn PLAYER' to revive a player if needed
+   # - INSTANT_KICK  : If the player leave the game, he will be considered like dead
+   # - NORMAL_KICK : If the player leave the game and does not come back after 30 seconds, he will be considered like dead
+   # - PRIVATE_KICK : If the player leave the game and does not come back after 30 seconds, he will be considered like dead
+   # - NO_KICK : The player can leave and get back whenever he wants.
+   #	/!\ NO_KICK can be dangerous if the player leave since if the player leave and never come back the game will never end. If this happen, simply use '/eu stop'
+   #	    You should use the other three and use '/eu respawn' if something happen and you want to add the player back in the game.
+   DeconnectionRule: NORMAL_KICK
+
+#The name of the world to use for the overworld and the nether
+world:
+  nether: world_nether
+  overworld: world

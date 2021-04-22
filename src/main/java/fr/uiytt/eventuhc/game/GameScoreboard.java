@@ -26,7 +26,7 @@ public class GameScoreboard {
 	//If someone know a better way to do it, let me know
 	public void createScoreboard() {
 
-		if(Main.CONFIG.isDisplayLife()) {
+		if(Main.getConfigManager().isDisplayLife()) {
 			final Objective objLife = scoreboard.registerNewObjective("health","health","health");
 			objLife.setRenderType(RenderType.HEARTS);
 			objLife.setDisplaySlot(DisplaySlot.PLAYER_LIST);

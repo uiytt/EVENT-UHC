@@ -29,8 +29,8 @@ public class ChaosEventSunlightKills extends ChaosEvent {
 					this.cancel();
 					return;
 				}
-				if(Main.CONFIG.getWorld().hasStorm()) {
-					Main.CONFIG.getWorld().setStorm(false);
+				if(Main.getConfigManager().getWorld().hasStorm()) {
+					Main.getConfigManager().getWorld().setStorm(false);
 				}
 				for(UUID playerUUID : GameManager.getGameInstance().getGameData().getAlivePlayers()) {
 					Player player = Bukkit.getPlayer(playerUUID);

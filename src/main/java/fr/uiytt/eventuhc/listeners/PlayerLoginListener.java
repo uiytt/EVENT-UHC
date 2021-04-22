@@ -26,18 +26,18 @@ public class PlayerLoginListener implements Listener {
             public void run() {
                 GameData gamedata = GameManager.getGameInstance().getGameData();
                 if (!gamedata.isGameRunning()) {
-                    if (Main.CONFIG.getTeamSize() != 1) {
-                        int number_of_team = Math.max((int) Math.ceil((double) Bukkit.getOnlinePlayers().size() / (double) Main.CONFIG.getTeamSize()), 2);
+                    if (Main.getConfigManager().getTeamSize() != 1) {
+                        int number_of_team = Math.max((int) Math.ceil((double) Bukkit.getOnlinePlayers().size() / (double) Main.getConfigManager().getTeamSize()), 2);
                         if (number_of_team != gamedata.getTeams().size()) {
                             GameTeam.reorganizeTeam();
                         }
                     }
-                    if (Main.CONFIG.isAutoStart()) {
+                    if (Main.getConfigManager().isAutoStart()) {
                         Bukkit.broadcastMessage(Language.GAME_XPLAYERS_CONNECTED.getMessage()
                                 .replace("%s%",String.valueOf(Bukkit.getOnlinePlayers().size()))
-                                .replace("%s2%",String.valueOf(Main.CONFIG.getAutoStartNumber()))
+                                .replace("%s2%",String.valueOf(Main.getConfigManager().getAutoStartNumber()))
                         );
-                        if(Bukkit.getOnlinePlayers().size() >= Main.CONFIG.getAutoStartNumber() &&(autoStartRunnable == null || autoStartRunnable.isCancelled())) {
+                        if(Bukkit.getOnlinePlayers().size() >= Main.getConfigManager().getAutoStartNumber() &&(autoStartRunnable == null || autoStartRunnable.isCancelled())) {
                             Bukkit.broadcastMessage(Language.GAME_ENOUGH_PLAYERS.getMessage());
                             autoStartRunnable = new AutoStartRunnable(gamedata).runTaskTimer(Main.getInstance(), 20, 20);
                         }
@@ -69,7 +69,7 @@ public class PlayerLoginListener implements Listener {
 
         @Override
         public void run() {
-            if (!Main.CONFIG.isAutoStart() || gameData.isGameRunning() || Bukkit.getOnlinePlayers().size() < Main.CONFIG.getAutoStartNumber()) {
+            if (!Main.getConfigManager().isAutoStart() || gameData.isGameRunning() || Bukkit.getOnlinePlayers().size() < Main.getConfigManager().getAutoStartNumber()) {
                 this.cancel();
                 return;
             }

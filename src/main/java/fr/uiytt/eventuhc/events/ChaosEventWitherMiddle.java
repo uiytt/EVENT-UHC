@@ -21,7 +21,7 @@ public class ChaosEventWitherMiddle extends ChaosEvent {
 		super.onEnable();
 		Bukkit.broadcastMessage(Language.EVENT_WITHER_MIDDLE_ENABLE.getMessage());
 		for(int i =0;i<ThreadLocalRandom.current().nextInt(2) + 1;i++) {
-			Main.CONFIG.getWorld().spawnEntity(new Location(Main.CONFIG.getWorld(), 0, 100, 0), EntityType.WITHER);
+			Main.getConfigManager().getWorld().spawnEntity(new Location(Main.getConfigManager().getWorld(), 0, 100, 0), EntityType.WITHER);
 		}
 	}
 

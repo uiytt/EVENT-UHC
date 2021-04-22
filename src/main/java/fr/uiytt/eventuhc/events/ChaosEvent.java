@@ -21,7 +21,7 @@ public abstract class ChaosEvent {
 	private int timer = -1;
 
 	protected ChaosEvent(String name, Material itemMaterial, int id, Type type, String[] eventDescription) {
-		this(name,itemMaterial, id, type,eventDescription, Main.CONFIG.getTimeBetweenChaosEvents());
+		this(name,itemMaterial, id, type,eventDescription, Main.getConfigManager().getTimeBetweenChaosEvents());
 	}
 	protected ChaosEvent(String name, Material itemMaterial, int id, Type type, String[] eventDescription, int duration) {
 		this.type = type;
@@ -30,7 +30,7 @@ public abstract class ChaosEvent {
 		this.name = name;
 		this.eventDescription = eventDescription;
 		this.duration = duration;
-		defaultDuration = (duration == Main.CONFIG.getTimeBetweenChaosEvents());
+		defaultDuration = (duration == Main.getConfigManager().getTimeBetweenChaosEvents());
 	}
 	public static void changeBaseDuration(int configDuration) {
 		for(ChaosEvent chaosEvent : Register.getChaos_Events()) {

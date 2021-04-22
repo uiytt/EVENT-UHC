@@ -3,6 +3,7 @@ package fr.uiytt.eventuhc.config;
 import de.leonhard.storage.Config;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Yaml;
+import fr.uiytt.eventuhc.Main;
 import fr.uiytt.eventuhc.Register;
 import fr.uiytt.eventuhc.events.ChaosEvent;
 import fr.uiytt.eventuhc.events.ChaosEventWeirdBiomes;
@@ -15,6 +16,9 @@ import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -57,6 +61,18 @@ public class ConfigManager {
 	private int autoStartNumber;
 
 	public ConfigManager() {
+
+		File configFile = new File(Main.getInstance().getDataFolder().getAbsolutePath() + File.separator + "config.yml");
+		if (!configFile.exists()) {
+			Main.getLog().fine(configFile.getName() + " not found, extracting...");
+			configFile.getParentFile().mkdirs();
+			try {
+				Files.copy(Language.class.getResourceAsStream("/config.yml"), configFile.toPath());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		this.configYaml = new Config("config","plugins/Event-UHC");
 		this.chaosEventsYaml = new Yaml("ChaosEvents","plugins/Event-UHC");
 		this.inventoriesJSON = new Json("Inventories","plugins/Event-UHC");
@@ -88,8 +104,8 @@ public class ConfigManager {
 
 		//ServerOwner (can be modified only in the config file)
 		languageName = configYaml.getOrSetDefault("serverOwner.language","fr");
-		bannerOpenConfig = configYaml.getOrSetDefault("serverOwner.BannerOpenConfig", true);
-		comparatorOpenTeams = configYaml.getOrSetDefault("serverOwner.ComparatorOpenTeams", true);
+		bannerOpenConfig = configYaml.getOrSetDefault("serverOwner.BannerOpenTeams", true);
+		comparatorOpenTeams = configYaml.getOrSetDefault("serverOwner.ComparatorOpenConfig", true);
 		deconnectionRule = DeconnectionRule.getFromString(configYaml.getOrSetDefault("serverOwner.DeconnectionRule", DeconnectionRule.NORMAL_KICK.name()));
 		spectatorMessageToPlayers = configYaml.getOrSetDefault("serverOwner.SpectatorMessageToPlayers",true);
 		autoStart = configYaml.getOrSetDefault("serverOwner.AutoStart.enabled",false);
@@ -155,6 +171,16 @@ public class ConfigManager {
 	 * Recreate the config files if they were deleted.
 	 */
 	public void forceReload() {
+		File configFile = new File(Main.getInstance().getDataFolder().getAbsolutePath() + File.separator + "config.yml");
+		if (!configFile.exists()) {
+			Main.getLog().fine(configFile.getName() + " not found, extracting...");
+			configFile.getParentFile().mkdirs();
+			try {
+				Files.copy(Language.class.getResourceAsStream("/config.yml"), configFile.toPath());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		configYaml.forceReload();
 		chaosEventsYaml.forceReload();
 		inventoriesJSON.forceReload();

@@ -34,7 +34,7 @@ public class ChaosEventOtherWorld extends ChaosEvent {
 			Player player = Bukkit.getPlayer(playerUUID);
 			if(player == null) {continue;}
 
-			World destinationWorld = player.getWorld().getEnvironment() == Environment.NETHER ? Main.CONFIG.getWorld() : Main.CONFIG.getNether();
+			World destinationWorld = player.getWorld().getEnvironment() == Environment.NETHER ? Main.getConfigManager().getWorld() : Main.getConfigManager().getNether();
 			if(destinationWorld.getBlockAt(player.getLocation()).getType() != Material.LAVA) {
 				previousLocation.put(player.getUniqueId(), player.getLocation());
 

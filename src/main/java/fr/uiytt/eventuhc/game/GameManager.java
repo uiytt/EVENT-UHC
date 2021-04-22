@@ -29,7 +29,7 @@ public class GameManager {
 	
 	public GameManager() {
 		gameData = new GameData();
-		world = Main.CONFIG.getWorld();
+		world = Main.getConfigManager().getWorld();
 		scoreboard = new GameScoreboard();
 	}
 	
@@ -52,7 +52,7 @@ public class GameManager {
 
 
 	private void fillTeams() {
-		if(Main.CONFIG.getTeamSize() == 1) {return;}
+		if(Main.getConfigManager().getTeamSize() == 1) {return;}
 		List<UUID> playersUUID = new ArrayList<>(gameData.getAlivePlayers());
 		Collections.shuffle(playersUUID);
 		for(UUID playerUUID : playersUUID) {
@@ -115,7 +115,7 @@ public class GameManager {
 					public void run() {
 						gameData.setPvp(true);
 						scoreboard.updatePvpTimer(-1);
-						if(Main.CONFIG.isFinalHeal()) {
+						if(Main.getConfigManager().isFinalHeal()) {
 							for(UUID playerUUID : gameData.getAlivePlayers()) {
 								Player player = Bukkit.getPlayer(playerUUID);
 								if(player != null) {
@@ -179,9 +179,9 @@ public class GameManager {
 							}
 						}
 						//Move border
-						int border_end = Main.CONFIG.getBorderEnd();
+						int border_end = Main.getConfigManager().getBorderEnd();
 						Bukkit.getServer().broadcastMessage(Language.GAME_BORDER_ACTIVATED.getMessage());
-						world.getWorldBorder().setSize(border_end, (long) (border_end / Main.CONFIG.getBorderBlockPerSecond() * 20));
+						world.getWorldBorder().setSize(border_end, (long) (border_end / Main.getConfigManager().getBorderBlockPerSecond() * 20));
 						scoreboard.updateBorderTimer(-1);
 					}
 				}.runTask(Main.getInstance());
@@ -195,7 +195,7 @@ public class GameManager {
 	private void initWorld() {
 		for(World loopWorld : Bukkit.getWorlds()) {
 			loopWorld.getWorldBorder().setCenter(0, 0);
-			loopWorld.getWorldBorder().setSize(Main.CONFIG.getBorderStart() * 2);
+			loopWorld.getWorldBorder().setSize(Main.getConfigManager().getBorderStart() * 2);
 			loopWorld.getWorldBorder().setWarningDistance(25);
 			loopWorld.getWorldBorder().setDamageBuffer(10);
 			loopWorld.getWorldBorder().setDamageAmount(2);
@@ -215,13 +215,13 @@ public class GameManager {
 			player.setHealth(20.0);
 			player.setGameMode(GameMode.SURVIVAL);
 			player.getInventory().clear();
-			player.getInventory().setContents(Main.CONFIG.getSpawnItems());
+			player.getInventory().setContents(Main.getConfigManager().getSpawnItems());
 			player.setAbsorptionAmount(0);
 			scoreboard.addPlayer(player);
 		});
 		Bukkit.broadcastMessage(Language.GAME_TELEPORTING.getMessage());
 		
-		if(Main.CONFIG.getTeamSize() == 1) {
+		if(Main.getConfigManager().getTeamSize() == 1) {
 			new BukkitRunnable() {
 				
 				@Override
@@ -339,7 +339,7 @@ public class GameManager {
 	 * return true if the game must be ended
 	 */
 	public boolean isEnd() {
-		if(Main.CONFIG.getTeamSize() == 1) {
+		if(Main.getConfigManager().getTeamSize() == 1) {
 			return gameData.getAlivePlayers().size() <= 1;
 		}
 		GameTeam lastPlayer = gameData.getPlayersTeam().get(gameData.getAlivePlayers().get(0));

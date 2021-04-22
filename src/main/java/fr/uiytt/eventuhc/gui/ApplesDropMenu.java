@@ -26,28 +26,28 @@ public class ApplesDropMenu implements InventoryProvider {
 	public void init(Player player, InventoryContents contents) {
 		contents.fillBorders(ClickableItem.empty(Divers.ItemStackBuilder(Material.GRAY_STAINED_GLASS_PANE, ChatColor.GRAY + "", new String[] {} )));
 		contents.set(1,1, ClickableItem.of(Divers.ItemStackBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "-5"), event -> {
-			Main.CONFIG.setApplesDrop(Math.max(0, Main.CONFIG.getApplesDrop() - 5));
+			Main.getConfigManager().setApplesDrop(Math.max(0, Main.getConfigManager().getApplesDrop() - 5));
 			updateItemValue(contents);
 		}));
 		contents.set(1,2, ClickableItem.of(Divers.ItemStackBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "-1"), event -> {
-			Main.CONFIG.setApplesDrop(Math.max(0, Main.CONFIG.getApplesDrop() - 1));
+			Main.getConfigManager().setApplesDrop(Math.max(0, Main.getConfigManager().getApplesDrop() - 1));
 			updateItemValue(contents);
 		}));
 		contents.set(1,3, ClickableItem.of(Divers.ItemStackBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "-0.5"), event -> {
-			Main.CONFIG.setApplesDrop(Math.max(0, Main.CONFIG.getApplesDrop() - 0.5f));
+			Main.getConfigManager().setApplesDrop(Math.max(0, Main.getConfigManager().getApplesDrop() - 0.5f));
 			updateItemValue(contents);
 		}));
 
 		contents.set(1,5, ClickableItem.of(Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+0.5"), event -> {
-			Main.CONFIG.setApplesDrop(Math.min(Main.CONFIG.getApplesDrop() + 0.5f,100));
+			Main.getConfigManager().setApplesDrop(Math.min(Main.getConfigManager().getApplesDrop() + 0.5f,100));
 			updateItemValue(contents);
 		}));
 		contents.set(1,6, ClickableItem.of(Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+1"), event -> {
-			Main.CONFIG.setApplesDrop(Math.min(Main.CONFIG.getApplesDrop() + 1,100));
+			Main.getConfigManager().setApplesDrop(Math.min(Main.getConfigManager().getApplesDrop() + 1,100));
 			updateItemValue(contents);
 		}));
 		contents.set(1,7, ClickableItem.of(Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+5"), event -> {
-			Main.CONFIG.setApplesDrop(Math.min(Main.CONFIG.getApplesDrop() + 5,100));
+			Main.getConfigManager().setApplesDrop(Math.min(Main.getConfigManager().getApplesDrop() + 5,100));
 			updateItemValue(contents);
 		}));
 		contents.set(0, 0, ClickableItem.of(Divers.ItemStackBuilder(Material.PAPER, ChatColor.GRAY + "<---"), event -> inventory.getParent().ifPresent(inventory -> inventory.open(player))));
@@ -60,7 +60,7 @@ public class ApplesDropMenu implements InventoryProvider {
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
 				Divers.ItemStackBuilder(Material.APPLE, Language.GUI_ADVANCED_APPLES_DROP_NAME.getMessage(),
-						Language.splitLore(Language.GUI_ADVANCED_APPLES_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getApplesDrop())))
+						Language.splitLore(Language.GUI_ADVANCED_APPLES_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.getConfigManager().getApplesDrop())))
 				)
 		));
 	}

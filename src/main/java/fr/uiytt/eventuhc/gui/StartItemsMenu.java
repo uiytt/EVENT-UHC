@@ -37,7 +37,7 @@ public class StartItemsMenu implements InventoryProvider {
 	@Override
 	public void init(Player player, InventoryContents contents) {
 		ItemStack empty_gray_pane = Divers.ItemStackBuilder(Material.GRAY_STAINED_GLASS_PANE, ChatColor.GRAY + "");
-		List<ItemStack> items = new ArrayList<>(Arrays.asList(Main.CONFIG.getSpawnItems()));
+		List<ItemStack> items = new ArrayList<>(Arrays.asList(Main.getConfigManager().getSpawnItems()));
 		for(int i=0;i<items.size();i++) {
 			ItemStack item = items.get(i);
 			if(item == null || item.getType() == Material.AIR) {
@@ -70,7 +70,7 @@ public class StartItemsMenu implements InventoryProvider {
 			playersGamemode.put(player.getUniqueId(), player.getGameMode());
 			playersInventory.put(player.getUniqueId(), player.getInventory().getContents());
 			player.getInventory().clear();
-			player.getInventory().setContents(Main.CONFIG.getSpawnItems());
+			player.getInventory().setContents(Main.getConfigManager().getSpawnItems());
 			player.setGameMode(GameMode.CREATIVE);
 			player.sendMessage(Language.GUI_OTHER_FINISH.getMessage());
 		}));

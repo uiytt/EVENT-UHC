@@ -16,7 +16,7 @@ public class ChaosEventNoGravityForEntities extends ChaosEvent {
 	protected void onEnable() {
 		super.onEnable();
 		Bukkit.broadcastMessage(Language.EVENT_NO_ENTITY_GRAVITY_ENABLE.getMessage());
-		Main.CONFIG.getWorld().getEntities().forEach(entity -> {
+		Main.getConfigManager().getWorld().getEntities().forEach(entity -> {
 			if(entity.getType() != EntityType.PLAYER) {
 				entity.setGravity(false);
 			}

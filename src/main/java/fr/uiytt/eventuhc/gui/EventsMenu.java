@@ -32,7 +32,7 @@ public class EventsMenu implements InventoryProvider {
 			.manager(Main.getInvManager())
 			.parent(new MainMenu().INVENTORY)
 			.build();
-			/*.listener(new InventoryListener<>(InventoryCloseEvent.class, event -> Main.CONFIG.setChaosEvents()))*/
+			/*.listener(new InventoryListener<>(InventoryCloseEvent.class, event -> Main.getConfigManager().setChaosEvents()))*/
 
 	@Override
 	public void init(Player player, InventoryContents contents) {
@@ -54,7 +54,7 @@ public class EventsMenu implements InventoryProvider {
 				chaosEventItem,
 				listener -> {
 					chaosEvent.setEnabled(!chaosEvent.isEnabled());
-					Main.CONFIG.setChaosEventsEnable(chaosEvent);
+					Main.getConfigManager().setChaosEventsEnable(chaosEvent);
 					this.inventory.open(player, pagination.getPage());
 				}
 			));

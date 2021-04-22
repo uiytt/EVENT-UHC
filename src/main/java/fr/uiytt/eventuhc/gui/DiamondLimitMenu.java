@@ -26,28 +26,28 @@ public class DiamondLimitMenu implements InventoryProvider {
 	public void init(Player player, InventoryContents contents) {
 		contents.fillBorders(ClickableItem.empty(Divers.ItemStackBuilder(Material.GRAY_STAINED_GLASS_PANE, ChatColor.GRAY + "", new String[] {} )));
 		contents.set(1,1, ClickableItem.of(Divers.ItemStackBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "-10"), event -> {
-			Main.CONFIG.setDiamondlimitAmmount(Math.max(0, Main.CONFIG.getDiamondlimitAmmount() - 10));
+			Main.getConfigManager().setDiamondlimitAmmount(Math.max(0, Main.getConfigManager().getDiamondlimitAmmount() - 10));
 			updateItemValue(contents);
 		}));
 		contents.set(1,2, ClickableItem.of(Divers.ItemStackBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "-5"), event -> {
-			Main.CONFIG.setDiamondlimitAmmount(Math.max(0, Main.CONFIG.getDiamondlimitAmmount() - 5));
+			Main.getConfigManager().setDiamondlimitAmmount(Math.max(0, Main.getConfigManager().getDiamondlimitAmmount() - 5));
 			updateItemValue(contents);
 		}));
 		contents.set(1,3, ClickableItem.of(Divers.ItemStackBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "-1"), event -> {
-			Main.CONFIG.setDiamondlimitAmmount(Math.max(0, Main.CONFIG.getDiamondlimitAmmount() - 1));
+			Main.getConfigManager().setDiamondlimitAmmount(Math.max(0, Main.getConfigManager().getDiamondlimitAmmount() - 1));
 			updateItemValue(contents);
 		}));
 
 		contents.set(1,5, ClickableItem.of(Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+1"), event -> {
-			Main.CONFIG.setDiamondlimitAmmount(Main.CONFIG.getDiamondlimitAmmount() + 1);
+			Main.getConfigManager().setDiamondlimitAmmount(Main.getConfigManager().getDiamondlimitAmmount() + 1);
 			updateItemValue(contents);
 		}));
 		contents.set(1,6, ClickableItem.of(Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+5"), event -> {
-			Main.CONFIG.setDiamondlimitAmmount(Main.CONFIG.getDiamondlimitAmmount() + 5);
+			Main.getConfigManager().setDiamondlimitAmmount(Main.getConfigManager().getDiamondlimitAmmount() + 5);
 			updateItemValue(contents);
 		}));
 		contents.set(1,7, ClickableItem.of(Divers.ItemStackBuilder(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+10"), event -> {
-			Main.CONFIG.setDiamondlimitAmmount(Main.CONFIG.getDiamondlimitAmmount() + 10);
+			Main.getConfigManager().setDiamondlimitAmmount(Main.getConfigManager().getDiamondlimitAmmount() + 10);
 			updateItemValue(contents);
 		}));
 		contents.set(0, 0, ClickableItem.of(Divers.ItemStackBuilder(Material.PAPER, ChatColor.GRAY + "<---"), event -> inventory.getParent().ifPresent(inventory -> inventory.open(player))));
@@ -60,7 +60,7 @@ public class DiamondLimitMenu implements InventoryProvider {
 	private void updateItemValue(InventoryContents contents) {
 		contents.set(1, 4,ClickableItem.empty(
 				Divers.ItemStackBuilder(Material.DIAMOND_ORE, Language.GUI_ADVANCED_DIAMOND_LIMIT_NAME.getMessage(),
-						Language.splitLore(Language.GUI_ADVANCED_DIAMOND_LIMIT.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getDiamondlimitAmmount())))
+						Language.splitLore(Language.GUI_ADVANCED_DIAMOND_LIMIT.getMessage().replace("%s%",String.valueOf(Main.getConfigManager().getDiamondlimitAmmount())))
 				)
 		));
 	}

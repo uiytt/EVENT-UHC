@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class Main extends JavaPlugin {
 
 	private static JavaPlugin instance;
-	public static final ConfigManager CONFIG = new ConfigManager();
+	private static ConfigManager CONFIG;
 	private static Logger logger;
 	private static InventoryManager InvManager;
 	
@@ -26,6 +26,7 @@ public class Main extends JavaPlugin {
 		Register.register(this);
 
 		//Load the config
+		CONFIG = new ConfigManager();
 		CONFIG.load();
 
 		//Create a new empty instance of the game to avoid null error 
@@ -39,5 +40,8 @@ public class Main extends JavaPlugin {
 	public static InventoryManager getInvManager() {
 		return InvManager;
 	}
-	
+
+	public static ConfigManager getConfigManager() {
+		return CONFIG;
+	}
 }

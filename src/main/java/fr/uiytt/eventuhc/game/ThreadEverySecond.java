@@ -30,8 +30,8 @@ public class ThreadEverySecond {
 		private final GameManager game;
 		
 		private SecondRunnable(GameManager game) {
-			pvpTimer = Main.CONFIG.getPvpTimer();
-			borderTimer = Main.CONFIG.getBorderTimer();
+			pvpTimer = Main.getConfigManager().getPvpTimer();
+			borderTimer = Main.getConfigManager().getBorderTimer();
 			this.game = game;
 		} 			
 		
@@ -65,12 +65,12 @@ public class ThreadEverySecond {
 			}
 			
 			//Update Timer for events
-			if(eventTimer >= Main.CONFIG.getTimeBetweenChaosEvents()) {
+			if(eventTimer >= Main.getConfigManager().getTimeBetweenChaosEvents()) {
 				eventTimer = 0;}
-			scoreboard.updateNextEventTime(Main.CONFIG.getTimeBetweenChaosEvents() - eventTimer);
+			scoreboard.updateNextEventTime(Main.getConfigManager().getTimeBetweenChaosEvents() - eventTimer);
 			
 			//Select a new event
-			if(secondFromStart % Main.CONFIG.getTimeBetweenChaosEvents() == 0) {
+			if(secondFromStart % Main.getConfigManager().getTimeBetweenChaosEvents() == 0) {
 				List<ChaosEvent> chaosList = gamedata.getAvailableChaosEvents();
 				for(int i = 0;i<ThreadLocalRandom.current().nextInt(3) + 1;i++) {
 					if(chaosList.size() > 0) {

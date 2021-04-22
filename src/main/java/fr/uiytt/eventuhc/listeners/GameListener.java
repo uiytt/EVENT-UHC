@@ -100,7 +100,7 @@ public class GameListener implements Listener {
 		GameScoreboard scoreboard = GameManager.getGameInstance().getScoreboard();
 		scoreboard.updateNbrPlayer(playersUUID.size());
 		
-		List<ItemStack> death_items = Arrays.asList(Main.CONFIG.getDeathItems());
+		List<ItemStack> death_items = Arrays.asList(Main.getConfigManager().getDeathItems());
 		if(!death_items.isEmpty()) {
 			event.getDrops().addAll(death_items);
 		}
@@ -132,18 +132,18 @@ public class GameListener implements Listener {
 		Player player = event.getPlayer();
 		if(!gameData.isGameRunning() || !gameData.getAlivePlayers().contains(player.getUniqueId())) {
 			GameTeam.removePlayerFromAllTeams(player.getUniqueId());
-			if(!gameData.isGameRunning() && Main.CONFIG.isAutoStart()){
+			if(!gameData.isGameRunning() && Main.getConfigManager().isAutoStart()){
 				Bukkit.broadcastMessage(Language.GAME_XPLAYERS_CONNECTED.getMessage()
 						.replace("%s%",String.valueOf(Bukkit.getOnlinePlayers().size() - 1))
-						.replace("%s2%",String.valueOf(Main.CONFIG.getAutoStartNumber()))
+						.replace("%s2%",String.valueOf(Main.getConfigManager().getAutoStartNumber()))
 				);
 			}
 			return;
 		}
-		if(Main.CONFIG.getDeconnectionRule() == DeconnectionRule.NO_KICK) {
+		if(Main.getConfigManager().getDeconnectionRule() == DeconnectionRule.NO_KICK) {
 			return;
 		}
-		int timeBeforeRemoving = Main.CONFIG.getDeconnectionRule().getWaitingTime();
+		int timeBeforeRemoving = Main.getConfigManager().getDeconnectionRule().getWaitingTime();
 		if(timeBeforeRemoving != 0) {
 			Bukkit.broadcastMessage(Language.WARNING_RECONNECTION.getMessage().replace("%s%",player.getDisplayName()).replace("%s2%",String.valueOf(timeBeforeRemoving)));
 		}
@@ -181,7 +181,7 @@ public class GameListener implements Listener {
 					world.dropItemNaturally(player.getLocation(), item);
 
 				}
-				for (ItemStack item : Main.CONFIG.getDeathItems()) {
+				for (ItemStack item : Main.getConfigManager().getDeathItems()) {
 					if(item == null) {continue;}
 					world.dropItemNaturally(player.getLocation(), item);
 				}
@@ -213,7 +213,7 @@ public class GameListener implements Listener {
 		event.setCancelled(true);
 		Player player = event.getPlayer();
 		if(gameData.getAlivePlayers().contains(event.getPlayer().getUniqueId())) {
-			if(Main.CONFIG.getTeamSize() == 1) {
+			if(Main.getConfigManager().getTeamSize() == 1) {
 				Bukkit.getOnlinePlayers().forEach(loop_player -> loop_player.sendMessage(ChatColor.YELLOW + player.getDisplayName() + ": " + ChatColor.GRAY + event.getMessage()));
 			} else {
 				GameTeam playerTeam = gameData.getPlayersTeam().get(player.getUniqueId());
@@ -229,7 +229,7 @@ public class GameListener implements Listener {
 			}
 		} else {
 			for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-				if(Main.CONFIG.getSpectatorMessageToPlayers() || !gameData.getAlivePlayers().contains(onlinePlayer.getUniqueId())) {
+				if(Main.getConfigManager().getSpectatorMessageToPlayers() || !gameData.getAlivePlayers().contains(onlinePlayer.getUniqueId())) {
 					onlinePlayer.sendMessage(ChatColor.GRAY + "[SPEC] " + player.getDisplayName() + ": " +  event.getMessage());
 				}
 			}
@@ -243,7 +243,7 @@ public class GameListener implements Listener {
 		}
 		event.setCancelled(true);
 		event.getBlock().setType(Material.AIR);
-		if(ThreadLocalRandom.current().nextInt(1,100) <= Main.CONFIG.getApplesDrop()) {
+		if(ThreadLocalRandom.current().nextInt(1,100) <= Main.getConfigManager().getApplesDrop()) {
 			event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), new ItemStack(Material.APPLE));
 		}
 	}
@@ -260,7 +260,7 @@ public class GameListener implements Listener {
 		if(material == Material.GRAVEL) {
 			event.setCancelled(true);
 			block.setType(Material.AIR);
-			if(ThreadLocalRandom.current().nextInt(1,100) <= Main.CONFIG.getFlintsDrop()) {
+			if(ThreadLocalRandom.current().nextInt(1,100) <= Main.getConfigManager().getFlintsDrop()) {
 				block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.FLINT));
 			} else {
 				block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.GRAVEL));
@@ -268,11 +268,11 @@ public class GameListener implements Listener {
 			}
 			return;
 		} else if(material == Material.DIAMOND_ORE) {
-			if(!Main.CONFIG.isDiamondLimit()) {return;}
+			if(!Main.getConfigManager().isDiamondLimit()) {return;}
 			if(event.isDropItems()) {
-				if(gameData.getDiamondLimit().containsKey(player.getUniqueId()) && gameData.getDiamondLimit().get(player.getUniqueId()) >= Main.CONFIG.getDiamondlimitAmmount()) {
+				if(gameData.getDiamondLimit().containsKey(player.getUniqueId()) && gameData.getDiamondLimit().get(player.getUniqueId()) >= Main.getConfigManager().getDiamondlimitAmmount()) {
 					event.setCancelled(true);
-					player.sendMessage(Language.WARNING_DIAMOND_LIMIT.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getDiamondlimitAmmount())));
+					player.sendMessage(Language.WARNING_DIAMOND_LIMIT.getMessage().replace("%s%",String.valueOf(Main.getConfigManager().getDiamondlimitAmmount())));
 				} else {
 					if(!gameData.getDiamondLimit().containsKey(player.getUniqueId())) {
 						gameData.getDiamondLimit().put(player.getUniqueId(), 1);
@@ -286,11 +286,11 @@ public class GameListener implements Listener {
 		} else if(Tag.LEAVES.isTagged(material)) {
 			event.setCancelled(true);
 			event.getBlock().setType(Material.AIR);
-			if(ThreadLocalRandom.current().nextFloat() * 100 + 1 <= Main.CONFIG.getApplesDrop()) {
+			if(ThreadLocalRandom.current().nextFloat() * 100 + 1 <= Main.getConfigManager().getApplesDrop()) {
 				event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), new ItemStack(Material.APPLE));
 			}
 		}
-		if(!Main.CONFIG.isCutClean() || !event.isDropItems()) {
+		if(!Main.getConfigManager().isCutClean() || !event.isDropItems()) {
 			return;
 		}
 
@@ -317,7 +317,7 @@ public class GameListener implements Listener {
 
 	@EventHandler
 	public void onBrew(BrewEvent event ) {
-		if(!GameManager.getGameInstance().getGameData().isGameRunning() || Main.CONFIG.isPotionLv2()) {
+		if(!GameManager.getGameInstance().getGameData().isGameRunning() || Main.getConfigManager().isPotionLv2()) {
 			return;
 		}
 		ItemStack[] items = event.getContents().getContents();
@@ -335,16 +335,16 @@ public class GameListener implements Listener {
 		if(gamedata.isGameRunning()) {
 			return;
 		}
-		if(event.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPARATOR && Main.CONFIG.isComparatorOpenTeams()) {
+		if(event.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPARATOR && Main.getConfigManager().isComparatorOpenTeams()) {
 			event.setCancelled(true);
 			if(event.getPlayer().hasPermission("event-uhc.config")) {
 				new MainMenu().INVENTORY.open(event.getPlayer());
 			} else {
 				event.getPlayer().sendMessage(Language.WARNING_PERMISSION.getMessage());
 			}
-		} else if (event.getPlayer().getInventory().getItemInMainHand().getType().toString() .contains("BANNER") && Main.CONFIG.isBannerOpenConfig()) {
+		} else if (event.getPlayer().getInventory().getItemInMainHand().getType().toString() .contains("BANNER") && Main.getConfigManager().isBannerOpenConfig()) {
 			event.setCancelled(true);
-			if(Main.CONFIG.getTeamSize() != 1) {
+			if(Main.getConfigManager().getTeamSize() != 1) {
 				new TeamsMenu().inventory.open(event.getPlayer());
 			} else {
 				event.getPlayer().sendMessage(Language.WARNING_FFA.getMessage());
@@ -355,7 +355,7 @@ public class GameListener implements Listener {
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent event) {
 		GameData gamedata = GameManager.getGameInstance().getGameData();
-		if(!gamedata.isGameRunning() || !Main.CONFIG.isCutClean()) {
+		if(!gamedata.isGameRunning() || !Main.getConfigManager().isCutClean()) {
 			return;
 		}
 		List<ItemStack> drops = new ArrayList<>();

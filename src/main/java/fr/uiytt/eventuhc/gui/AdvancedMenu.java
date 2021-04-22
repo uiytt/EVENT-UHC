@@ -33,65 +33,65 @@ public class AdvancedMenu implements InventoryProvider {
 	@Override
 	public void update(Player player, InventoryContents contents) {
 		contents.set(1, 1, ClickableItem.of(Divers.ItemStackBuilder(Material.APPLE, Language.GUI_ADVANCED_APPLES_DROP_NAME.getMessage(),
-				Language.splitLore(Language.GUI_ADVANCED_APPLES_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getApplesDrop())))
+				Language.splitLore(Language.GUI_ADVANCED_APPLES_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.getConfigManager().getApplesDrop())))
 				), event -> new ApplesDropMenu().inventory.open(player)));
 		contents.set(1, 2, ClickableItem.of(Divers.ItemStackBuilder(Material.FLINT, Language.GUI_ADVANCED_FLINTS_DROP_NAME.getMessage(),
-				Language.splitLore(Language.GUI_ADVANCED_FLINTS_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getFlintsDrop())))
+				Language.splitLore(Language.GUI_ADVANCED_FLINTS_DROP_LORE.getMessage().replace("%s%",String.valueOf(Main.getConfigManager().getFlintsDrop())))
 		), event -> new FlintsDropMenu().inventory.open(player)));
 
-		String potionLV2Enabled = Main.CONFIG.isPotionLv2() ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
+		String potionLV2Enabled = Main.getConfigManager().isPotionLv2() ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
 		contents.set(1, 3, ClickableItem.of(Divers.ItemStackBuilder(
 				Material.POTION,
 				Language.GUI_ADVANCED_POTIONLV2_NAME.getMessage(),
 				Language.splitLore(Language.GUI_ADVANCED_POTIONLV2_LORE.getMessage().replace("%enable%",potionLV2Enabled))
-			), event -> Main.CONFIG.setPotionLv2(!Main.CONFIG.isPotionLv2())));
+			), event -> Main.getConfigManager().setPotionLv2(!Main.getConfigManager().isPotionLv2())));
 
 		ItemStack diamondLimitItem;
-		if(Main.CONFIG.isDiamondLimit()) {
+		if(Main.getConfigManager().isDiamondLimit()) {
 			diamondLimitItem = Divers.ItemStackBuilder(Material.DIAMOND_ORE, Language.GUI_ADVANCED_DIAMOND_LIMIT_NAME.getMessage(),
-				Language.splitLore(Language.GUI_ADVANCED_DIAMOND_LIMIT_ENABLE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getDiamondlimitAmmount())))
+				Language.splitLore(Language.GUI_ADVANCED_DIAMOND_LIMIT_ENABLE.getMessage().replace("%s%",String.valueOf(Main.getConfigManager().getDiamondlimitAmmount())))
 			);
 		} else {
 			diamondLimitItem = Divers.ItemStackBuilder(Material.DIAMOND_ORE, Language.GUI_ADVANCED_DIAMOND_LIMIT_NAME.getMessage(),
-				Language.splitLore(Language.GUI_ADVANCED_DIAMOND_LIMIT_DISABLE.getMessage().replace("%s%",String.valueOf(Main.CONFIG.getDiamondlimitAmmount())))
+				Language.splitLore(Language.GUI_ADVANCED_DIAMOND_LIMIT_DISABLE.getMessage().replace("%s%",String.valueOf(Main.getConfigManager().getDiamondlimitAmmount())))
 			);
 		}
 		contents.set(1, 4, ClickableItem.of(diamondLimitItem, event -> {
 			if(event.getClick() == ClickType.LEFT) {
-				Main.CONFIG.setDiamondLimit(!Main.CONFIG.isDiamondLimit());
+				Main.getConfigManager().setDiamondLimit(!Main.getConfigManager().isDiamondLimit());
 			} else {
 				new DiamondLimitMenu().inventory.open(player);
 			}
 		}));
 
-		String cutCleanEnabled = Main.CONFIG.isCutClean() ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
+		String cutCleanEnabled = Main.getConfigManager().isCutClean() ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
 		contents.set(1, 5, ClickableItem.of(Divers.ItemStackBuilder(
 				Material.IRON_AXE,
 				Language.GUI_ADVANCED_CUTCLEAN_NAME.getMessage(),
 				Language.splitLore(Language.GUI_ADVANCED_CUTCLEAN_LORE.getMessage().replace("%enable%",cutCleanEnabled))
 			), event -> {
-				Main.CONFIG.setCutClean(!Main.CONFIG.isCutClean());
+				Main.getConfigManager().setCutClean(!Main.getConfigManager().isCutClean());
 				inventory.open(player);
 		}));
 
-		String finalHealEnabled = Main.CONFIG.isFinalHeal() ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
+		String finalHealEnabled = Main.getConfigManager().isFinalHeal() ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
 		contents.set(1,6,ClickableItem.of(Divers.ItemStackBuilder(
 				Material.GOLDEN_APPLE,
 				Language.GUI_ADVANCED_FINAL_HEAL_NAME.getMessage(),
 				Language.splitLore(Language.GUI_ADVANCED_FINAL_HEAL_LORE.getMessage().replace("%enable%",finalHealEnabled))
 			),event -> {
-				Main.CONFIG.setFinalHeal(!Main.CONFIG.isFinalHeal());
+				Main.getConfigManager().setFinalHeal(!Main.getConfigManager().isFinalHeal());
 				inventory.open(player);
 		}));
 
-		String displayLifeEnabled = Main.CONFIG.isDisplayLife() ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
+		String displayLifeEnabled = Main.getConfigManager().isDisplayLife() ? Language.GUI_ENABLE.getMessage() : Language.GUI_DISABLE.getMessage();
 
 		contents.set(1,7,ClickableItem.of(Divers.ItemStackBuilder(
 				Material.OAK_BOAT,
 				Language.GUI_ADVANCED_VISIBLE_HEALTH_NAME.getMessage(),
 				Language.splitLore(Language.GUI_ADVANCED_VISIBLE_HEALTH_LORE.getMessage().replace("%enable%",displayLifeEnabled))
 			),event -> {
-				Main.CONFIG.setDisplayLife(!Main.CONFIG.isDisplayLife());
+				Main.getConfigManager().setDisplayLife(!Main.getConfigManager().isDisplayLife());
 				inventory.open(player);
 		}));
 	}

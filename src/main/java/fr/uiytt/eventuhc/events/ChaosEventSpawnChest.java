@@ -23,7 +23,7 @@ public class ChaosEventSpawnChest extends ChaosEvent {
 		super.onEnable();
 		List<Location> locs = new ArrayList<>();
 		for(int i = 0;i<ThreadLocalRandom.current().nextInt(5) + 2;i++) {
-			locs.add(Divers.highestBlock(Divers.randomLocation(Main.CONFIG.getWorld())));
+			locs.add(Divers.highestBlock(Divers.randomLocation(Main.getConfigManager().getWorld())));
 		}
 		locs.forEach(loc -> {
 			Bukkit.broadcastMessage("Un coffre d'items très puissants apparait aux cords X:" + loc.getX() + " Y:" + loc.getBlockY() + " Z:" + loc.getZ());

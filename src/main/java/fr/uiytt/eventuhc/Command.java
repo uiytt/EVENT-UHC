@@ -102,9 +102,9 @@ public class Command implements CommandExecutor,TabCompleter{
 				sender.sendMessage(Language.WARNING_GAME_ON.getMessage());
 				return true;
 			}
-			Main.CONFIG.forceReload();
-			Main.CONFIG.load();
-			ChaosEvent.changeBaseDuration(Main.CONFIG.getTimeBetweenChaosEvents());
+			Main.getConfigManager().forceReload();
+			Main.getConfigManager().load();
+			ChaosEvent.changeBaseDuration(Main.getConfigManager().getTimeBetweenChaosEvents());
 			sender.sendMessage(Language.COMMAND_RELOAD.getMessage());
 			return true;
 
@@ -138,7 +138,7 @@ public class Command implements CommandExecutor,TabCompleter{
 			}
 			Player player = (Player) sender;
 			if(StartItemsMenu.getPlayersModifyingItems().contains(player.getUniqueId())) {
-				Main.CONFIG.setSpawnItems(player.getInventory().getContents());
+				Main.getConfigManager().setSpawnItems(player.getInventory().getContents());
 				StartItemsMenu.getPlayersModifyingItems().remove(player.getUniqueId());
 				
 				//Set previous gamemode
@@ -153,7 +153,7 @@ public class Command implements CommandExecutor,TabCompleter{
 				return true;
 				
 			} else if(DeathItemsMenu.getPlayersModifyingItems().contains(player.getUniqueId())) {
-				Main.CONFIG.setDeathItems(player.getInventory().getContents());
+				Main.getConfigManager().setDeathItems(player.getInventory().getContents());
 				DeathItemsMenu.getPlayersModifyingItems().remove(player.getUniqueId());
 				
 				//Set previous gamemode
@@ -179,7 +179,7 @@ public class Command implements CommandExecutor,TabCompleter{
 				sender.sendMessage(Language.WARNING_CONSOL.getMessage());
 				return true;
 			}
-			if(Main.CONFIG.getTeamSize() == 1) {
+			if(Main.getConfigManager().getTeamSize() == 1) {
 				sender.sendMessage(Language.WARNING_FFA.getMessage());
 				return true;
 			}

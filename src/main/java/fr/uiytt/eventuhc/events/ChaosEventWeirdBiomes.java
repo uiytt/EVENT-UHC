@@ -36,7 +36,7 @@ public class ChaosEventWeirdBiomes extends ChaosEvent {
 		for(int i = 0;i<ThreadLocalRandom.current().nextInt(4) + 1;i++) {
 			//Add a random number of biomes
 			//biomes are init with the highest block of a random location and random materials for blocs
-			weirdBiomes.add(new WeirdBiome(Divers.highestBlock(Divers.randomLocation(Main.CONFIG.getWorld())).getBlock(), getRandomMaterialsList()));
+			weirdBiomes.add(new WeirdBiome(Divers.highestBlock(Divers.randomLocation(Main.getConfigManager().getWorld())).getBlock(), getRandomMaterialsList()));
 		}
 		Bukkit.broadcastMessage(Language.EVENT_WEIRD_BIOMES_ENABLE.getMessage());
 		weirdBiomes.forEach(biome -> Bukkit.broadcastMessage(
