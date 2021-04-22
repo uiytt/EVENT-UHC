@@ -82,8 +82,8 @@ serverOwner:
    SpectatorMessageToPlayers: true
 
    #Currently the only available language is French (use 'fr')
-   #I'm working on the english translation, you are free to add your own translation on the github.
-   language: fr
+   #All curently available languages are here : https://github.com/uiytt/Event-UHC/wiki/Languages
+   language: en
 
    #Does the game automatically start (after 60 secondes) when there is enough players
    AutoStart:

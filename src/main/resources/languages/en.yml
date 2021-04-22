@@ -1,0 +1,263 @@
+header: "&8&l[&eEVENT-UHC&8&l]&7"
+event_header: "&8&l[&5EVENT-UHC&8&l]&f"
+error_header: "&8&l[&eEVENT-UHC&8&l] &cERROR:"
+
+game:
+  victory: "%header% Congratulations to &9%s &7 for his victory !!!"
+  pvp_soon: "%header% The &9pvp &7will be activated in &c%s &7second(s)."
+  pvp_activated: "%header% The &9pvp &7was just activated."
+  border_soon: "%header% The &aborder &7will be activated in &c%s &7second(s)."
+  border_activated: "%header% The &aborder &7start moving."
+  teleporting: "%header% The players will be teleported."
+  teleporting_player: "%header% Teleporting player &9%s%&7/&9%s2%"
+  teleporting_team: "%header% Teleporting team &9%s%&7/&9%s2%"
+  xplayers_connected: "%header% &e%s%&7/&e%s2% &7players connected."
+  enough_players: "%header% There are enough players to start the game."
+  start_in: "%header% The game start in &e%s% &7seconds."
+
+warning:
+  error:
+    winner_not_online: "%error_header% The winner is not online."
+    add_team: "%error_header% There was an error while trying to add you to this team."
+  ffa: "%header% &cYou can not do that in ffa."
+  reconnection: "%header% &cThe player %s% will be removed from the game in %s2% seconds if he does not come back."
+  player_removed: "%header% The player &c%s% &7was removed from the game."
+  diamond_limit: "%header% You cannot mine more than &b%s% diamonds&7."
+  permission: "%header% &cYou don't have the permissions to do that."
+  game_is_on: "%header% &cYou cannot do that while the game is started."
+  game_is_off: "%header% &cYou cannot do that while the game has not yet started."
+  not_enough_player: "%header% &cThere is not enough player to do this."
+  consol: "%header% &cThis command can not be executed from the consol."
+
+command:
+  stop: "%header% A player stopped the game."
+  force_border: "%header% &cYou already forced the border."
+  force_pvp: "%header% &cYou already forced the pvp."
+  reload: "%header% The config was reloaded."
+  finish_items: "%header% &cYou are not currently modifying the items."
+  player_alive: "%header% &cThis player is still alive."
+  player_exist: "%header% &cThis player does not exist."
+  syntax: "%header% &cThe syntax is wrong : "
+  help:
+    title: "&7>> &e&l/event-uhc &b... "
+    aliases: "&eAliases: /eu,/euhc"
+    start: "&b... &lstart &7: Start the game"
+    stop: "&b... &lstop &7: Stop the game"
+    config: "&b... &lconfig &7: Open the GUI for the config"
+    force: "&b... &lforce &7: Force the pvp or the border"
+    reload: "&b... &lreload &7: Reload the config and the language"
+    respawn: "&b... &rrespawn &7: Respawn a player"
+    finish: "&b... &lfinish &7: Stop the editing of the starting items and the death items"
+    team: "&b... &lteam &7: Open the team selection menu"
+    help: "&b... &lhelp &7: Send this message"
+
+
+
+events:
+  tnt_timer:
+    lore: "A tnt spawn on the player \n every 20s"
+    enable: "%event_header% BOOM BOOM BOOM (a tnt will spawn on you every 20 seconds :D ) "
+  bff:
+    lore: "All playeys receive a dog."
+    enable: "%event_header% Here is your new Best Friend Forever : a dog."
+  blaze:
+    lore: "Spawn some blazes on players"
+    enable: "%event_header% 4 blazes for free :D"
+  blocks_attack:
+    lore: "Some mined blocks can fight back"
+    enable: "%event_header% Be warry, some bloks can now fight back."
+  blocks_gravity:
+    lore: "Blocks have gravity. \n &cIt can cause perf issues"
+    enable: "%event_header% Blocks will be affected by gravity."
+  bow_swap:
+    lore: ""
+    enable: "%event_header% Bow swap !"
+  curse_of_binding:
+    lore: ""
+    enable: "%header% AHA, You cannot remove your armor !"
+  damage_drop_items:
+    lore: "When a player get hit,\nhe drops an item."
+    enable: "%event_header% When you take a damage, you drop an item."
+  double_health:
+    lore: "Players have temporarily two \nhealth bars"
+    enable: "%event_header% + 20HP (You keep your additional HP at the end)."
+  explosion_spawn_mobs:
+    lore: "When a creeper or a tnt explode,\n10 mobs spawn."
+    enable: "%event_header% Explosions spawn monsters... Advice : Don't make creeper explode"
+  golden_apple:
+    lore: "Playe receive one or two golden apples"
+    enable: "%event_header% You receive a gift."
+  haste:
+    lore: ""
+    enable: "%event_header% + Haste"
+  heal:
+    lore: "All players are healed."
+    enable: "%event_header% All player were healed."
+  jump_boost:
+    lore: ""
+    enable: "%event_header% + JumpBoost V"
+  levitation:
+    lore: ""
+    enable: "%event_header% To infinity and beyond. (You get levitation regularly.)"
+  life_share:
+    lore: "Players will get their health \nlinked to another player"
+    enable: "%event_header% All players will share their health with another player ..."
+    link: "%event_header% You are linked with &e%s%"
+  life_shuffle:
+    lore: "Players will receive the life \nof another player"
+    enable: "%event_header% Vous avez échangé votre vie avec un autre joueur"
+    receive: "%event_header% Tu as reçus la vie de &e%s%"
+  no_damage_mobs:
+    lore: ""
+    enable: "%event_header% Mobs won't deal any damage to you temporarily."
+  no_entity_gravity:
+    lore: "All spawning entities will not have any gravity"
+    enable: "%event_header% GravityInc. close today."
+  no_jump:
+    lore: ""
+    enable: "%event_header% Your feet are now stuck to the ground... (NoJump)"
+  other_world:
+    lore: "Tp all players in the same place in the nether."
+    enable: "%event_header% Are you interested in travelling to the nether ? Perfect because you don't have a choice :D \n P.S : You will get back at the end."
+    cancel: "%event_header% Your tp was cancelled because there is some lava at your coordinates in the nether."
+  popcorn:
+    lore: "Every 3 seconds, players\nare propelled in a random direction."
+    enable: "%event_header% Warning, every 3 seconds, you will be propelled in a random direction, good luck."
+  raining_mobs:
+    lore: "Rain of mobs :x"
+    enable: "%event_header% It's Raining Mobs"
+  random_inventory:
+    lore: "the inventory will randomly mix itself."
+    enable: "%event_header% Random Inventory -> The order of your item is random."
+  run_glow:
+    lore: ""
+    enable: "%event_header% When you run, you glow !"
+  skyhigh:
+    lore: "Player under Y 150 \nwill take some damages"
+    enable: "%event_header% Fly you fools. In 1m, every players under y 150 will start taking damage"
+  slowness:
+    lore: ""
+    enable: "%event_header% The race is not always to the swift. -> slowness."
+  small_meteors:
+    lore: ""
+    enable: "%event_header% The end of the world is near, only the choosen will survive (meteors rain)."
+  snowball_zombie:
+    lore: "Throwing a snowball\nwill spawn a zombie."
+    enable: "%event_header% Try throwing a snowball ^^'"
+  speed:
+    lore: ""
+    enable: "%event_header% + Speed XII"
+  speed_pig:
+    lore: "Players are stuck on a speed with speed 2."
+    enable: "%event_header% Pig race ! (You are stuck on a pig with speed 2)."
+  stone_is_lava:
+    lore: ""
+    enable: "%event_header% &c&lThe stone around all players will be transformed in lava in %s% seconds (protect yourself)."
+  sunlight_kills:
+    lore: "At sunlight, players will die"
+    enable: "%event_header% Stay at home if you don't want to burn... You will burn at sunlight in 20 seconds. (Yes you also burn at night)."
+  swap:
+    lore: "Players are swap regularly"
+    enable: "%event_header% Players will be swap every 1 minutes and 30 seconds. (Swaps can be cancelled)"
+    timer: "%event_header% Swap in %s% seconds."
+    cancel: "%event_header% Swap was cancelled."
+  teleportation_top:
+    lore: ""
+    enable: "%event_header% Back to bloc one (surface)"
+  teleportation_others:
+    lore: "Teleport randomly some players\nto other players"
+    enable: "%event_header% In 30s some players will be teleported to other players. LET'S FIGHTTTTT"
+    enable2: "%event_header% You have 20% of being teleported to another player, don't die !"
+  unbreakable_blocks:
+    lore: ""
+    enable: "%event_header% Blocks are unbreakable. Let's play &mMine&r&7craft"
+  water_poison:
+    lore: "Players receive poison in water."
+    enable: "%event_header% The water is now radioactive (well it gives poison)."
+  weird_biomes:
+    lore: "Biomes of random blocks appear."
+    enable: "%event_header% Weird things happen in :"
+    coords: "%event_header% X:%X% et Z:%Z%"
+  weird_fight:
+    lore: "Players cannot use\nswords, or bows."
+    enable: "%event_header% You cannot use swords or bow to fight anymore."
+  wither_middle:
+    lore: "Spawn one ore more withers in 0 0"
+    enable: "%event_header% One or more withers are waiting for you in 0 0."
+
+gui:
+  enable: "&aenabled"
+  disable: "&cdisabled"
+  next: "&eNext page"
+  previous: "&ePrevious page"
+  advanced:
+    title:
+    apples_drop_name: "&eApples drop"
+    apples_drop_lore: "&7Apples drop rate is&b %s%%"
+    flints_drop_name: "&eFlints drop"
+    flints_drop_lore: "&7Flints drop rate is &b%s%%"
+    potionslv2_name: "&ePotions II"
+    potionslv2_lore: "&7Level two potions are %enable%"
+    diamond_limit_name: "&eDiamondLimit"
+    diamond_limit: "&7The diamond limit ammount is &b%s% diamonds"
+    diamond_limite_enable: "&7The diamondLimit is &aenabled\n&7its limit is &b%s% diamonds\n\n&fLeft click &l>> &cDisable\n&fRight click &l>> &bChange limit"
+    diamond_limite_disable: "&7The diamondLimit is &cdisabled\n&7its limit is &b%s% diamonds\n\n&fLeft click &l>> &aEnable\n&fRight click &l>> &bChange limit"
+    cutclean_name: "&eCutclean"
+    cutclean_lore: "&7The cutclean is %enable%"
+    final_heal_name: "&eFinalHeal"
+    final_heal_lore: "&7Players are healed just\n&7before the pvp: %enable%"
+    visible_health_name: "&eDisplay health"
+    visible_health_lore: "&7The health is visible in the tablist: %enable%"
+  border:
+    end_name: "&eFinal border"
+    end_lore: "&7The border at the &cend &7is\n&7set at &e+%s%/-%s%"
+    time_name: "&eTime before the border"
+    time_lore: "&7The border start moving \n&7after &e%s% minutes"
+    speed_name: "&eBorder speed"
+    speed_lore: "&7The border travel at &e%s% block(s)/second"
+    start_name: "&eStarting border"
+    start_lore: "&7The border at the &astart \n&7is set at &e+%s%/-%s%"
+  respawn:
+    effects: "&7The player will respawn with 30s \n&7of fire resistance,\n&75s of resistance IV and \n&71m of water breathing."
+    name: "&aRespawn %s%"
+    random_tp_name: "&eRandomTP"
+    random_tp_lore: "&7The randomTP is %enable% \n&7The player will respawn where\n&7he died."
+    give_stuff_name: "&eStuff"
+    give_stuff_lore: "&7The stuff is %enable% \n&7Will the player \n&7get his stuff back."
+  main:
+    pvp_name: "&eStart of the pvp"
+    pvp_lore: "&7The pvp will start\n&7after &e%s% &7minutes"
+    time_events_name: "&eTime between two events"
+    time_events_lore: "&7There is &d%s% minutes \n&7between two events. \n&7Most events \n&7will last this long."
+    start_items_name: "&eStarting items"
+    start_items_lore: "&7Items given at \n&7the start of the game"
+    death_items_name: "&eDeath items"
+    death_items_lore: "&7items dropped when \n&7a player die"
+    events_name: "&eEvents"
+    events_lore: "&7Enabling/disabling events"
+    advanced_name: "&eAdvanced parameters"
+    advanced_lore: "&7Some advanced parameters"
+    teams_size_name: "&eTeam size"
+    teams_ffa_lore: "&7You are in &bFFA"
+    teams_size_lore: "&7You are in &b%s% vs %s%"
+  other:
+    add_items: "&eAdd items"
+    finish: "&m                                         \n\n&8&l>> &aDo &e/event-uhc finish &ato save the items.\n\n&m                                         "
+  title:
+    advanced_menu: "&8&lAdvanced parameters"
+    apples_rate_menu: "&8&lApple drops"
+    border_end_menu: "&8&lEnd border"
+    border_speed_menu: "&8&lBorder speed"
+    border_start_menu: "&8&lStart border"
+    border_time_menu: "&8&lBorder time"
+    death_items_menu: "&8&lDeaths items"
+    diamond_limit_menu: "&8&lDiamond limit"
+    events_menu: "&8&lEvents"
+    flints_rate_menu: "&8&lFlints drops"
+    main_menu: "&8&lConfig"
+    pvp_menu: "&8&lTime PVP"
+    respawn_menu: "&8&lRespawn"
+    spectator_inventory_menu: "&8&lPlayer's items"
+    start_items_menu: "&8&lStarting items"
+    teams_menu: "&8&lTeams"
+    time_events: "&8&lTime between two events"

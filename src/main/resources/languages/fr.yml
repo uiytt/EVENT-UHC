@@ -21,7 +21,7 @@ warning:
     add_team: "%error_header% Une erreur a eu lieu lors de votre ajout dans cette team."
   ffa: "%header% &cVous ne pouvez pas faire ça en mode FFA."
   reconnection: "%header% &cLe joueur %s% sera enlevé de la partie dans %s2% secondes si il ne se reconnecte pas."
-  player_removed: "%header% Le joueur &c%s% &7a été enlevé de la partie/home/uiytt/Dev/Serveurs/spigot-1.14.4/plugins."
+  player_removed: "%header% Le joueur &c%s% &7a été enlevé de la partie."
   diamond_limit: "%header% Vous ne pouvez pas miner plus de &b%s% diamants&7."
   permission: "%header% &cVous n'avez pas la permission."
   game_is_on: "%header% &cVous ne pouvez pas faire ça alors que la partie est lancée."
@@ -56,7 +56,7 @@ command:
 events:
   tnt_timer:
     lore: "Une tnt spawn sur les joueurs \n toutes les 20s"
-    enable: "%event_header% BOOM BOOM BOOM (une tnt toutes les 20 secondes apparaitera sur vous :D ) "
+    enable: "%event_header% BOOM BOOM BOOM (une tnt apparaitera sur vous toutes les 20 secondes :D ) "
   bff:
     lore: "Les joueurs recoivent un chien."
     enable: "%event_header% Voici votre nouveau Best Friend Forever : un chien."
