@@ -55,7 +55,7 @@ command:
 
 events:
   tnt_timer:
-    lore: "A tnt spawn on the player \n every 20s"
+    lore: "A tnt spawn on the players \n every 20s"
     enable: "%event_header% BOOM BOOM BOOM (a tnt will spawn on you every 20 seconds :D ) "
   bff:
     lore: "All playeys receive a dog."

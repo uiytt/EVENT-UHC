@@ -31,6 +31,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.BrewEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -338,7 +339,9 @@ public class GameListener implements Listener {
 		if(event.getPlayer().getInventory().getItemInMainHand().getType() == Material.COMPARATOR && Main.getConfigManager().isComparatorOpenTeams()) {
 			event.setCancelled(true);
 			if(event.getPlayer().hasPermission("event-uhc.config")) {
-				new MainMenu().INVENTORY.open(event.getPlayer());
+				if(event.getPlayer().getOpenInventory().getType() == InventoryType.CREATIVE || event.getPlayer().getOpenInventory().getType() == InventoryType.CRAFTING ) {
+					new MainMenu().INVENTORY.open(event.getPlayer());
+				}
 			} else {
 				event.getPlayer().sendMessage(Language.WARNING_PERMISSION.getMessage());
 			}

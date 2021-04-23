@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -67,7 +68,7 @@ public class ConfigManager {
 			Main.getLog().fine(configFile.getName() + " not found, extracting...");
 			configFile.getParentFile().mkdirs();
 			try {
-				Files.copy(Language.class.getResourceAsStream("/config.yml"), configFile.toPath());
+				Files.copy(ConfigManager.class.getResourceAsStream("/config.yml"), configFile.toPath());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

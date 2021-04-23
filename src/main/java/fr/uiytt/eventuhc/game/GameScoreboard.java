@@ -56,7 +56,7 @@ public class GameScoreboard {
 		scorelist.add(obj.getScore(ChatColor.BLUE + "" + ChatColor.BOLD + "Infos"));
 		Team players_alive = scoreboard.registerNewTeam("EUHC_pa");
 		players_alive.addEntry(ChatColor.BLUE + "");
-		players_alive.setPrefix(ChatColor.GREEN + "Joueurs: " + GameManager.getGameInstance().getGameData().getAlivePlayers().size());
+		players_alive.setPrefix(ChatColor.GREEN + "Players: " + GameManager.getGameInstance().getGameData().getAlivePlayers().size());
 		scorelist.add(obj.getScore(ChatColor.BLUE + ""));
 		Team border_size = scoreboard.registerNewTeam("EUHC_bordersize");
 		border_size.addEntry(ChatColor.DARK_BLUE + "");
@@ -194,7 +194,7 @@ public class GameScoreboard {
 	public void updateNbrPlayer(int players) {
 		Team playersCounter = scoreboard.getTeam("EUHC_pa");
 		if(playersCounter == null) {return;}
-		playersCounter.setPrefix(ChatColor.GREEN + "Joueurs: " + players);
+		playersCounter.setPrefix(ChatColor.GREEN + "Players: " + players);
 	}
 	
 	protected String intToTime(int time) {
