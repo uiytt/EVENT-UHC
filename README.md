@@ -13,7 +13,7 @@ This game is not for players who want a serious game, it's not a fair game but i
 
 
 ## Setup
-Install spigot or paper in 1.14+
+Install spigot or paper in 1.14 or +
 <br>Download the plugin on the spigot page and put it in the plugins/ folder
 <br>Op yourself, invite players
 <br>use /eu config to configurate the game 
