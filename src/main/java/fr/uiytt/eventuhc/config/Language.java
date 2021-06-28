@@ -88,7 +88,7 @@ public enum Language {
     EVENT_LEVITATION_ENABLE("events.levitation.enable"),
     EVENT_LIFE_SHARE_LORE("events.life_share.lore"),
     EVENT_LIFE_SHARE_ENABLE("events.life_share.enable"),
-    EVENT_LIFE_SHARE_LINK("events.life_share.linkcacc"),
+    EVENT_LIFE_SHARE_LINK("events.life_share.link"),
     EVENT_LIFE_SHUFFLE_LORE("events.life_shuffle.lore"),
     EVENT_LIFE_SHUFFLE_ENABLE("events.life_shuffle.enable"),
     EVENT_LIFE_SHUFFLE_RECEIVE("events.life_shuffle.receive"),

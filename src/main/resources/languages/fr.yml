@@ -46,7 +46,7 @@ command:
     config: "&b... &lconfig &7: Ouvre le panneau de configuration"
     force: "&b... &lforce &7: Force le pvp ou la bordure"
     reload: "&b... &lreload &7: Recharge la config et la langue"
-    respawn: "&b... &respawn &7: Permet de faire respawn le joueur"
+    respawn: "&b... &lrespawn &7: Permet de faire respawn le joueur"
     finish: "&b... &lfinish &7: Mets fin à l'éditeur des items de départ et de mort"
     team: "&b... &lteam &7: Ouvre le menu de sélection des teams"
     help: "&b... &lhelp &7: Envoie ce message"
@@ -242,7 +242,7 @@ gui:
     teams_size_lore: "&7Vous êtes en &b%s% vs %s%"
   other:
     add_items: "&eAjouter des items"
-    finish: "&f―――――――――――――――――――――――――――――――――――――\n\n&8&l>> &aFaites &e/event-uhc finish &apour sauvegarder les items.\n\n&f―――――――――――――――――――――――――――――――――――――"
+    finish: "&a&m                                         \n\n&8&l>> &aFaites &e/event-uhc finish &apour sauvegarder les items.\n\n&a&m                                         "
   title:
     advanced_menu: "&8&lParamètres avancés"
     apples_rate_menu: "&8&lDrop des pommes"
